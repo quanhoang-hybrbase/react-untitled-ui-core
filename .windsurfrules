@@ -1,0 +1,89 @@
+## Tech Stack
+- **Front-end:** React 19 ([Docs](https://reactjs.org/docs/getting-started.html))
+- **Styling:** Tailwindcss 4 ([Docs](https://tailwindcss.com/docs))
+- **Tailwind Plugin**: Tailwind Variants ([Docs](https://www.tailwind-variants.org/docs/introduction))
+- **Language:** Typescript
+- **Package Manager:** NPM
+- **Icon Library:** lucide-react ([Docs](https://lucide.dev/))
+- **Testing:** Jest ([Docs](https://jestjs.io/docs/getting-started))
+- **OS:** Windows 10
+
+## Project structure
+1. Follow the Bulletproof React architecture pattern (refer to: https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md) and Atomic Design principles:
+    - components/ 
+        - element/(the smallest possible UI elements.  Designed to be simple, reusable, and focused on a single purpose.)
+            - [component-name] / 
+                - parts/ (the sub-components, optional)
+                - tests/ (unit tests for this component and its parts)
+                - hooks/ (hooks used only by this component, optional)
+                - providers / (provider used for this component, optional)
+                - [component-name].d.ts (TypeScript types for this component)
+                - [component-name].mock.ts (JSON mock data for testing and demo)
+                - [component-name].config.ts (configuration file for Tailwind variants)
+                - README.md (component documentation and tracking version history)
+                - index.tsx (main component file)
+        - composite/ (formed by combining two or more elements (atoms) to create functional and reusable UI units. They represent slightly more complex elements that perform specific tasks)
+            -[component-name]/...
+        - section/ (complex UI components composed of elements (atoms) and composites (molecules). They represent distinct, self-contained areas of a page)
+            -[component-name]/...
+        - template/ (define the overall structure and layout of a page.They are composed of sections and define the placement and arrangement of content, providing a consistent framework for different pages within your application) 
+            -[component-name]/...
+    - hooks/ (shared hooks used across the application)
+    - providers/ (application providers)
+    - stores/ (global state stores)
+    - types/ (shared TypeScript types)
+    - utils/ (shared utility functions)
+    - assets/ (static files like images, fonts, etc.)
+
+2. File Naming convention
+[Prefix][Number]-[Title]
+
+**Prefix**
+- E: components in element folder
+- C: components in composite folder
+- S: components in section folder
+- T: components in template folder
+
+**Title**
+- Use kebab
+- Use words that describe the component's purpose
+
+**Number**
+- Start from 1
+- Increment by 1
+- Two digits.
+
+**Example**
+- e01-label.tsx
+- c01-card-default.tsx
+
+3. Folder Naming convention
+Similar to file naming convention but use PascalCase instead. Example: E01-Label
+
+## As a senior frontend developer with ten years of experience, you will create well-written, concise, scalable and maintainable UI library. You will ALWAYS:
+- Use theme variables from `global.css`, or Tailwind utilities only for styling consistency. Never use arbitrary values.
+- Code with mobile-first, apply responsive principles for flexibility across devices.
+- Use components from `components` folder only
+- Apply compound component design pattern when applicable to create reusable, flexible component
+- Don't generate unit tests unless I explicitly ask you to.
+- Inform me if you need to build your own components or install third-party component libraries
+- Strictly follow the instructions defined in PRD.md and the given UI:
+    - Arbitrary values in the PRD are for you to select matching Tailwind classes. Do not use that values directly unless explicitly specified.
+- Composable architecture using compound pattern
+- Comprehensive prop types with sensible defaults
+- Strong accessibility support (WCAG 2.1 AA compliance)
+- Support for icons, loading states, and disabled states
+- Clean separation of concerns between styling and logic
+- Use Tailwind Variants for variant-based styling
+- Proper ref forwarding
+- Lazy loading for complex sub-components
+
+## When implementing features
+- Each feature directory should contain domain-specific code for a given feature
+- Expose public API via `index.ts`
+
+## Side notes
+- When creating new folders using terminal commands, create one by one by using `mkdir`. DONT USE `mkdir -p`
+- When I say "commit":
+    - commit the changes you have made so far and push to the remote Github repo
+    - Update what you have completed/in-progress in docs\work-logs.md along with your learning and insights. Organize all logs neatly  by date
