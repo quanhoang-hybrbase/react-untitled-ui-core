@@ -1,233 +1,460 @@
-# E-03 Button
+# Element/Buttons/E-03 Button
 
-## Component Purpose
+## UI Specification
+
+### Component Name
+E-03 Button
+
+### Component Purpose
 A Button is an interactive UI element that allows users to trigger actions or navigate within an interface.
 
-## Props Definition
+### Unit test cases to validate props misconfiguration
 
-### Variant Props (🎨)
-```ts
-interface VariantProps {
+```tsx
+// Component naming test
+describe('E03Button', () => {
+  it('should have the correct display name', () => {
+    expect(E03Button.displayName).toBe('E03Button');
+  });
+
+  // Props names tests
+  describe('Props names validation', () => {
+    it('should accept format prop', () => {
+      render(<E03Button format="F-01 Primary" />);
+      // No error should be thrown
+    });
+
+    it('should accept state prop', () => {
+      render(<E03Button state="S-00 Default" />);
+      // No error should be thrown
+    });
+
+    it('should accept theme prop', () => {
+      render(<E03Button theme="T-01 Brand" />);
+      // No error should be thrown
+    });
+
+    it('should accept size prop', () => {
+      render(<E03Button size="M-01 Small" />);
+      // No error should be thrown
+    });
+
+    it('should accept iconPosition prop', () => {
+      render(<E03Button iconPosition="Leading" />);
+      // No error should be thrown
+    });
+
+    it('should accept label prop', () => {
+      render(<E03Button label="Button" />);
+      // No error should be thrown
+    });
+
+    it('should accept icon prop', () => {
+      render(<E03Button icon="E-10 Circle" />);
+      // No error should be thrown
+    });
+  });
+
+  // Props values tests
+  describe('Props values validation', () => {
+    // Format prop values
+    it('should accept valid format values', () => {
+      const { rerender } = render(<E03Button format="F-01 Primary" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-format', 'F-01 Primary');
+      
+      rerender(<E03Button format="F-02 Secondary" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-format', 'F-02 Secondary');
+      
+      rerender(<E03Button format="F-03 Tertiary" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-format', 'F-03 Tertiary');
+      
+      rerender(<E03Button format="F-04 Link" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-format', 'F-04 Link');
+    });
+
+    // State prop values
+    it('should accept valid state values', () => {
+      const { rerender } = render(<E03Button state="S-00 Default" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-state', 'S-00 Default');
+      
+      rerender(<E03Button state="S-01 Hover" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-state', 'S-01 Hover');
+      
+      rerender(<E03Button state="S-02 Focused" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-state', 'S-02 Focused');
+      
+      rerender(<E03Button state="S-03 Disabled" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-state', 'S-03 Disabled');
+    });
+
+    // Theme prop values
+    it('should accept valid theme values', () => {
+      const { rerender } = render(<E03Button theme="T-01 Brand" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-theme', 'T-01 Brand');
+      
+      rerender(<E03Button theme="T-02 Grey" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-theme', 'T-02 Grey');
+    });
+
+    // Size prop values
+    it('should accept valid size values', () => {
+      const { rerender } = render(<E03Button size="M-01 Small" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-size', 'M-01 Small');
+      
+      rerender(<E03Button size="M-02 Medium" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-size', 'M-02 Medium');
+      
+      rerender(<E03Button size="M-03 Large" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-size', 'M-03 Large');
+      
+      rerender(<E03Button size="M-04 Extra Large" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-size', 'M-04 Extra Large');
+    });
+
+    // iconPosition prop values
+    it('should accept valid iconPosition values', () => {
+      const { rerender } = render(<E03Button iconPosition="None" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-icon-position', 'None');
+      
+      rerender(<E03Button iconPosition="Leading" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-icon-position', 'Leading');
+      
+      rerender(<E03Button iconPosition="Trailing" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-icon-position', 'Trailing');
+      
+      rerender(<E03Button iconPosition="Only" />);
+      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-icon-position', 'Only');
+    });
+
+    // label prop values
+    it('should display the correct label text', () => {
+      render(<E03Button label="Custom Button Text" />);
+      expect(screen.getByText('Custom Button Text')).toBeInTheDocument();
+    });
+
+    // icon prop values
+    it('should render the correct icon', () => {
+      render(<E03Button icon="E-10 Circle" iconPosition="Leading" />);
+      // This would need to be adjusted based on how icons are implemented
+      expect(screen.getByTestId('icon-e10-circle')).toBeInTheDocument();
+    });
+  });
+});
+```
+
+### Props Definition as Typescript types
+
+```tsx
+// e03-button.d.ts
+// Variant Props (🎨)
+export interface E03ButtonVariantProps {
   format: 'F-01 Primary' | 'F-02 Secondary' | 'F-03 Tertiary' | 'F-04 Link';
   state: 'S-00 Default' | 'S-01 Hover' | 'S-02 Focused' | 'S-03 Disabled';
   theme: 'T-01 Brand' | 'T-02 Grey';
   size: 'M-01 Small' | 'M-02 Medium' | 'M-03 Large' | 'M-04 Extra Large';
 }
-```
 
-### External Props (⚙️)
-```ts
-interface ExternalProps {
+// External Props (➡️)
+export interface E03ButtonExternalProps {
   iconPosition: 'None' | 'Leading' | 'Trailing' | 'Only';
 }
-```
 
-### Data Props (📦)
-```ts
-interface DataProps {
+// Data Props (📦)
+export interface E03ButtonDataProps {
   label: string;
-  icon: Icon; // from lucide-react
+  icon: string;
 }
+
+// Component Props
+export interface E03ButtonProps 
+  extends E03ButtonVariantProps, 
+    E03ButtonExternalProps,
+    E03ButtonDataProps,
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {}
 ```
 
-## Component Folder Structure
+### Component folder structure
+
 ```
-components/
-└── element/
-    └── Buttons/
-        └── E-03-Button/
-            ├── parts/
-            ├── tests/
-            ├── hooks/
-            │   └── use-e-03-button.ts
-            ├── e-03-button.d.ts
-            ├── e-03-button.config.ts
-            ├── e-03-button.mock.ts
-            ├── README.md
-            └── index.tsx
+src/
+└── components/
+    └── element/
+        └── Buttons/
+            └── E-03-Button/
+                ├── README.md
+                ├── e03-button.config.ts
+                ├── e03-button.d.ts
+                ├── parts/
+                │   └── e03-button.tsx  # Main component file
+                ├── hooks/
+                │   └── use-e03-button.ts
+                └── index.tsx  # Main export entry file
 ```
 
-## Tailwind Variant Styling Configuration
+### Tailwind Variant styling configuration
 
-Based on the Figma API analysis, the button component has various variants that affect its styling. Here's how I would configure the Tailwind Variants using the slots concept:
+```tsx
+// e03-button.config.ts
+import { tv, type VariantProps } from 'tailwind-variants'
 
-```ts
-// e-03-button.config.ts
-import { tv } from 'tailwind-variants';
-
-export const buttonStyles = tv({
+const e03ButtonConfig = tv({
   slots: {
-    base: [
-      'flex items-center justify-center font-semibold transition-colors rounded-lg focus:outline-none focus-visible:ring-2',
-    ],
-    icon: 'flex-shrink-0',
-    label: 'leading-normal',
+    base: 'inline-flex items-center justify-center rounded-lg transition-colors focus:outline-none focus-visible:ring-4',
+    icon: 'flex items-center justify-center',
+    label: 'font-semibold',
   },
   variants: {
     format: {
       'F-01 Primary': {
-        base: 'bg-primary-600 text-white hover:bg-primary-700 focus-visible:ring-primary-500',
+        // Primary button with solid background
+        base: 'bg-primary-600 hover:bg-primary-700 focus:ring-primary-100',
+        icon: 'text-white',
+        label: 'text-white',
       },
       'F-02 Secondary': {
-        base: 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 focus-visible:ring-gray-500',
+        // Secondary button with outline
+        base: 'border border-gray-300 bg-white hover:bg-gray-50 focus:ring-gray-100',
+        icon: 'text-gray-700',
+        label: 'text-gray-700',
       },
       'F-03 Tertiary': {
-        base: 'bg-transparent text-gray-700 hover:bg-gray-100 focus-visible:ring-gray-500',
+        // Tertiary button with no background or border
+        base: 'bg-transparent hover:bg-gray-100 focus:ring-gray-100',
+        icon: 'text-gray-700',
+        label: 'text-gray-700',
       },
       'F-04 Link': {
-        base: 'bg-transparent text-primary-600 hover:text-primary-700 underline focus-visible:ring-primary-500 p-0',
+        // Link style button
+        base: 'bg-transparent hover:underline focus:ring-primary-100',
+        icon: 'text-primary-600',
+        label: 'text-primary-600',
       },
     },
     state: {
       'S-00 Default': {},
-      'S-01 Hover': {},
+      'S-01 Hover': {}, // Hover styles are handled in format variants
       'S-02 Focused': {
-        base: 'ring-2',
+        base: 'ring-4', // Focus ring
       },
       'S-03 Disabled': {
         base: 'opacity-50 cursor-not-allowed',
       },
     },
     theme: {
-      'T-01 Brand': {},
+      'T-01 Brand': {}, // Brand theme is handled in format variants
       'T-02 Grey': {
-        base: 'bg-gray-600 text-white hover:bg-gray-700 focus-visible:ring-gray-500',
+        'F-01 Primary': {
+          base: 'bg-gray-900 hover:bg-gray-800 focus:ring-gray-200',
+        },
       },
     },
     size: {
       'M-01 Small': {
-        base: 'text-sm py-2 px-3.5 gap-1.5',
-        icon: 'h-4 w-4',
+        base: 'text-sm',
+        label: 'text-sm',
+        // From API response: padding: "8px 14px" for text, "8px" for icon-only
       },
       'M-02 Medium': {
-        base: 'text-base py-2.5 px-4 gap-2',
-        icon: 'h-5 w-5',
+        base: 'text-base',
+        label: 'text-base',
+        // From API response: padding: "10px 18px" for text, "10px" for icon-only
       },
       'M-03 Large': {
-        base: 'text-lg py-3 px-5 gap-2.5',
-        icon: 'h-6 w-6',
+        base: 'text-base',
+        label: 'text-base',
+        // From API response: padding: "12px 20px" for text, "12px" for icon-only
       },
       'M-04 Extra Large': {
-        base: 'text-xl py-4 px-6 gap-3',
-        icon: 'h-7 w-7',
+        base: 'text-lg',
+        label: 'text-lg',
+        // From API response: padding: "14px" for icon-only, larger padding for text
       },
     },
     iconPosition: {
-      'None': {},
+      'None': {
+        icon: 'hidden',
+      },
       'Leading': {
         base: 'flex-row',
+        // From API response: gap: "8px"
       },
       'Trailing': {
         base: 'flex-row-reverse',
+        // From API response: gap: "8px"
       },
       'Only': {
-        base: 'p-2.5',
-      }
-    }
+        label: 'hidden',
+      },
+    },
   },
-  compoundVariants: [
-    {
-      iconPosition: 'Only',
-      size: 'M-01 Small',
-      class: {
-        base: 'p-2',
-      }
-    },
-    {
-      iconPosition: 'Only',
-      size: 'M-02 Medium',
-      class: {
-        base: 'p-2.5',
-      }
-    },
-    {
-      iconPosition: 'Only',
-      size: 'M-03 Large',
-      class: {
-        base: 'p-3',
-      }
-    },
-    {
-      iconPosition: 'Only',
-      size: 'M-04 Extra Large',
-      class: {
-        base: 'p-4',
-      }
-    },
-    {
-      format: 'F-01 Primary',
-      theme: 'T-02 Grey',
-      class: {
-        base: 'bg-gray-600 hover:bg-gray-700',
-      }
-    },
-  ],
   defaultVariants: {
     format: 'F-01 Primary',
     state: 'S-00 Default',
     theme: 'T-01 Brand',
     size: 'M-02 Medium',
     iconPosition: 'None',
-  }
-});
+  },
+  compoundVariants: [
+    // Size and iconPosition combinations
+    {
+      size: 'M-01 Small',
+      iconPosition: 'None',
+      class: {
+        base: 'px-3.5 py-2', // 8px 14px from API
+      },
+    },
+    {
+      size: 'M-01 Small',
+      iconPosition: 'Only',
+      class: {
+        base: 'p-2', // 8px from API
+      },
+    },
+    {
+      size: 'M-01 Small',
+      iconPosition: ['Leading', 'Trailing'],
+      class: {
+        base: 'px-3.5 py-2 gap-2', // 8px 14px with gap 8px from API
+      },
+    },
+    {
+      size: 'M-02 Medium',
+      iconPosition: 'None',
+      class: {
+        base: 'px-4.5 py-2.5', // 10px 18px from API
+      },
+    },
+    {
+      size: 'M-02 Medium',
+      iconPosition: 'Only',
+      class: {
+        base: 'p-2.5', // 10px from API
+      },
+    },
+    {
+      size: 'M-02 Medium',
+      iconPosition: ['Leading', 'Trailing'],
+      class: {
+        base: 'px-4.5 py-2.5 gap-2', // 10px 18px with gap 8px from API
+      },
+    },
+    {
+      size: 'M-03 Large',
+      iconPosition: 'None',
+      class: {
+        base: 'px-5 py-3', // 12px 20px from API
+      },
+    },
+    {
+      size: 'M-03 Large',
+      iconPosition: 'Only',
+      class: {
+        base: 'p-3', // 12px from API
+      },
+    },
+    {
+      size: 'M-03 Large',
+      iconPosition: ['Leading', 'Trailing'],
+      class: {
+        base: 'px-5 py-3 gap-2', // 12px 20px with gap 8px from API
+      },
+    },
+    {
+      size: 'M-04 Extra Large',
+      iconPosition: 'None',
+      class: {
+        base: 'px-6 py-3.5', // 14px larger for text
+      },
+    },
+    {
+      size: 'M-04 Extra Large',
+      iconPosition: 'Only',
+      class: {
+        base: 'p-3.5', // 14px from API
+      },
+    },
+    {
+      size: 'M-04 Extra Large',
+      iconPosition: ['Leading', 'Trailing'],
+      class: {
+        base: 'px-6 py-3.5 gap-2', // 14px larger with gap 8px from API
+      },
+    },
+    // Format and Theme combinations
+    {
+      format: 'F-01 Primary',
+      theme: 'T-02 Grey',
+      class: {
+        base: 'bg-gray-900 hover:bg-gray-800 focus:ring-gray-200',
+        icon: 'text-white',
+        label: 'text-white',
+      },
+    },
+    {
+      format: 'F-02 Secondary',
+      theme: 'T-02 Grey',
+      class: {
+        base: 'border border-gray-300 bg-white hover:bg-gray-50 focus:ring-gray-100',
+        icon: 'text-gray-700',
+        label: 'text-gray-700',
+      },
+    },
+    {
+      format: 'F-03 Tertiary',
+      theme: 'T-02 Grey',
+      class: {
+        base: 'bg-transparent hover:bg-gray-100 focus:ring-gray-100',
+        icon: 'text-gray-700',
+        label: 'text-gray-700',
+      },
+    },
+    {
+      format: 'F-04 Link',
+      theme: 'T-02 Grey',
+      class: {
+        base: 'bg-transparent hover:underline focus:ring-gray-100',
+        icon: 'text-gray-700',
+        label: 'text-gray-700',
+      },
+    },
+  ],
+})
+
+export type E03ButtonVariantProps = VariantProps<typeof e03ButtonConfig>
+export { e03ButtonConfig }
 ```
 
-## Component JSX Structure
-
-Based on the Figma API analysis and the template provided, here's how I would structure the Button component in JSX:
+### React file JSX structure
 
 ```tsx
+// e03-button.tsx
 'use client'
 import { clsx } from 'clsx'
-import { forwardRef } from 'react'
-import { useE03Button } from './hooks/use-e-03-button'
-import { VariantProps, ExternalProps, DataProps } from './e-03-button.d.ts'
-import { Circle } from 'lucide-react'
-
-export interface E03ButtonProps 
-  extends VariantProps, 
-    ExternalProps,
-    DataProps,
-    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {}
+import { forwardRef, type HTMLAttributes } from 'react'
+import { useE03Button } from './hooks/use-e03-button'
+import type { E03ButtonProps } from './e03-button.d.ts'
 
 export const E03Button = forwardRef<HTMLButtonElement, E03ButtonProps>(
-  ({ 
-    className,
-    format = 'F-01 Primary',
-    state = 'S-00 Default',
-    theme = 'T-01 Brand',
-    size = 'M-02 Medium',
-    iconPosition = 'None',
-    label = 'Button',
-    icon = Circle,
-    ...props 
-  }, ref) => {
-    const { e03ButtonRef, variant, e03ButtonStyle } = useE03Button({ 
-      ref,
-      format,
-      state,
-      theme,
-      size,
-      iconPosition
-    })
-    
-    const { base, icon: iconStyle, label: labelStyle } = e03ButtonStyle()
-    const Icon = icon
-    const isDisabled = state === 'S-03 Disabled'
-    const showIcon = iconPosition !== 'None'
-    const showLabel = iconPosition !== 'Only'
-    
+  ({ className, ...props }, ref) => {
+    const { e03ButtonRef, variant, e03ButtonStyle } = useE03Button({ ref, ...props })
+
     return (
       <button
-        data-comp="e-03-button"
+        data-comp="e03-button"
         data-variant={variant}
-        className={clsx(base(), className)}
+        className={clsx(e03ButtonStyle(), className)}
         ref={e03ButtonRef}
-        disabled={isDisabled}
         {...props}
       >
-        {showIcon && <Icon className={iconStyle()} />}
-        {showLabel && <span className={labelStyle()}>{label}</span>}
+        {props.iconPosition !== 'None' && props.iconPosition !== 'Trailing' && (
+          <span className={e03ButtonStyle.icon()}>{/* Icon will be rendered here */}</span>
+        )}
+        {props.iconPosition !== 'Only' && (
+          <span className={e03ButtonStyle.label()}>{props.label}</span>
+        )}
+        {props.iconPosition === 'Trailing' && (
+          <span className={e03ButtonStyle.icon()}>{/* Icon will be rendered here */}</span>
+        )}
       </button>
     )
   }
@@ -235,417 +462,173 @@ export const E03Button = forwardRef<HTMLButtonElement, E03ButtonProps>(
 
 E03Button.displayName = 'E03Button'
 
-export * from './e-03-button.d.ts'
+// Export types from the component's .d.ts file
+export * from './e03-button.d.ts'
 ```
 
-## Unit Test Cases
-
-Here are the unit test cases to validate if the props names and prop values are used correctly:
+### Examples of component usage
 
 ```tsx
-// e-03-button.test.tsx
-import { render, screen } from '@testing-library/react'
-import { E03Button } from './index'
-import { Circle, Download } from 'lucide-react'
+// Basic usage with default props
+<E03Button label="Button" />
 
-describe('E03Button Component', () => {
-  // Test Format Prop
-  describe('Format Prop', () => {
-    test('renders with default format (F-01 Primary)', () => {
-      render(<E03Button label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('F-01 Primary'))
-      // Check primary styling is applied
-      expect(button).toHaveClass(expect.stringContaining('bg-primary-600'))
-    })
+// Primary button with label
+<E03Button 
+  format="F-01 Primary"
+  label="Primary Button"
+  onClick={() => handleClick()}
+/>
 
-    test('renders with F-02 Secondary format', () => {
-      render(<E03Button format="F-02 Secondary" label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('F-02 Secondary'))
-      // Check secondary styling is applied
-      expect(button).toHaveClass(expect.stringContaining('border-gray-300'))
-    })
-
-    test('renders with F-03 Tertiary format', () => {
-      render(<E03Button format="F-03 Tertiary" label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('F-03 Tertiary'))
-      // Check tertiary styling is applied
-      expect(button).toHaveClass(expect.stringContaining('bg-transparent'))
-    })
-
-    test('renders with F-04 Link format', () => {
-      render(<E03Button format="F-04 Link" label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('F-04 Link'))
-      // Check link styling is applied
-      expect(button).toHaveClass(expect.stringContaining('underline'))
-    })
-  })
-
-  // Test State Prop
-  describe('State Prop', () => {
-    test('renders with default state (S-00 Default)', () => {
-      render(<E03Button label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('S-00 Default'))
-      expect(button).not.toBeDisabled()
-    })
-
-    test('renders with S-01 Hover state', () => {
-      render(<E03Button state="S-01 Hover" label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('S-01 Hover'))
-    })
-
-    test('renders with S-02 Focused state', () => {
-      render(<E03Button state="S-02 Focused" label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('S-02 Focused'))
-      expect(button).toHaveClass(expect.stringContaining('ring-2'))
-    })
-
-    test('renders with S-03 Disabled state', () => {
-      render(<E03Button state="S-03 Disabled" label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('S-03 Disabled'))
-      expect(button).toBeDisabled()
-      expect(button).toHaveClass(expect.stringContaining('cursor-not-allowed'))
-    })
-  })
-
-  // Test Theme Prop
-  describe('Theme Prop', () => {
-    test('renders with default theme (T-01 Brand)', () => {
-      render(<E03Button label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('T-01 Brand'))
-    })
-
-    test('renders with T-02 Grey theme', () => {
-      render(<E03Button theme="T-02 Grey" label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('T-02 Grey'))
-      // Check grey theme styling is applied
-      expect(button).toHaveClass(expect.stringContaining('bg-gray-600'))
-    })
-  })
-
-  // Test Size Prop
-  describe('Size Prop', () => {
-    test('renders with default size (M-02 Medium)', () => {
-      render(<E03Button label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('M-02 Medium'))
-      expect(button).toHaveClass(expect.stringContaining('text-base'))
-    })
-
-    test('renders with M-01 Small size', () => {
-      render(<E03Button size="M-01 Small" label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('M-01 Small'))
-      expect(button).toHaveClass(expect.stringContaining('text-sm'))
-    })
-
-    test('renders with M-03 Large size', () => {
-      render(<E03Button size="M-03 Large" label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('M-03 Large'))
-      expect(button).toHaveClass(expect.stringContaining('text-lg'))
-    })
-
-    test('renders with M-04 Extra Large size', () => {
-      render(<E03Button size="M-04 Extra Large" label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('M-04 Extra Large'))
-      expect(button).toHaveClass(expect.stringContaining('text-xl'))
-    })
-  })
-
-  // Test External Props
-  describe('External Props - iconPosition', () => {
-    test('renders with default iconPosition (None)', () => {
-      render(<E03Button label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('None'))
-      // Icon should not be present
-      expect(button.querySelector('svg')).not.toBeInTheDocument()
-    })
-
-    test('renders with Leading iconPosition', () => {
-      render(<E03Button iconPosition="Leading" label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('Leading'))
-      // Check icon is present and before text
-      const icon = button.querySelector('svg')
-      expect(icon).toBeInTheDocument()
-      expect(button).toHaveClass(expect.stringContaining('flex-row'))
-    })
-
-    test('renders with Trailing iconPosition', () => {
-      render(<E03Button iconPosition="Trailing" label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('Trailing'))
-      // Check icon is present and after text
-      const icon = button.querySelector('svg')
-      expect(icon).toBeInTheDocument()
-      expect(button).toHaveClass(expect.stringContaining('flex-row-reverse'))
-    })
-
-    test('renders with Only iconPosition', () => {
-      render(<E03Button iconPosition="Only" aria-label="Icon Button" />)
-      const button = screen.getByRole('button', { name: /icon button/i })
-      expect(button).toHaveAttribute('data-variant', expect.stringContaining('Only'))
-      // Check icon is present and no text
-      const icon = button.querySelector('svg')
-      expect(icon).toBeInTheDocument()
-      expect(button.textContent).toBe('')
-    })
-  })
-
-  // Test Data Props
-  describe('Data Props', () => {
-    test('renders with default label ("Button")', () => {
-      render(<E03Button />)
-      const button = screen.getByRole('button', { name: /button/i })
-      expect(button.textContent).toBe('Button')
-    })
-
-    test('renders with custom label', () => {
-      render(<E03Button label="Custom Label" />)
-      const button = screen.getByRole('button', { name: /custom label/i })
-      expect(button.textContent).toBe('Custom Label')
-    })
-
-    test('renders with default icon (Circle) when iconPosition is specified', () => {
-      render(<E03Button iconPosition="Leading" label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      const icon = button.querySelector('svg')
-      expect(icon).toBeInTheDocument()
-      // This is a simplified check, in a real test you might need to check specific SVG paths
-    })
-
-    test('renders with custom icon', () => {
-      render(<E03Button iconPosition="Leading" icon={Download} label="Test Button" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      const icon = button.querySelector('svg')
-      expect(icon).toBeInTheDocument()
-      // This is a simplified check, in a real test you might need to check specific SVG paths
-    })
-  })
-
-  // Test Compound Variants
-  describe('Compound Variants', () => {
-    test('renders icon-only button with appropriate padding based on size', () => {
-      render(<E03Button iconPosition="Only" size="M-01 Small" aria-label="Small Icon" />)
-      const smallButton = screen.getByRole('button', { name: /small icon/i })
-      expect(smallButton).toHaveClass(expect.stringContaining('p-2'))
-      
-      render(<E03Button iconPosition="Only" size="M-03 Large" aria-label="Large Icon" />)
-      const largeButton = screen.getByRole('button', { name: /large icon/i })
-      expect(largeButton).toHaveClass(expect.stringContaining('p-3'))
-    })
-
-    test('applies correct styling for primary button with grey theme', () => {
-      render(<E03Button format="F-01 Primary" theme="T-02 Grey" label="Grey Primary" />)
-      const button = screen.getByRole('button', { name: /grey primary/i })
-      expect(button).toHaveClass(expect.stringContaining('bg-gray-600'))
-      expect(button).toHaveClass(expect.stringContaining('hover:bg-gray-700'))
-    })
-  })
-
-  // Test Accessibility
-  describe('Accessibility', () => {
-    test('forwards ref to button element', () => {
-      const ref = jest.fn()
-      render(<E03Button ref={ref} label="Test Button" />)
-      expect(ref).toHaveBeenCalled()
-      expect(ref.mock.calls[0][0]).toBeInstanceOf(HTMLButtonElement)
-    })
-
-    test('applies aria-label for icon-only buttons', () => {
-      render(<E03Button iconPosition="Only" aria-label="Icon Button" />)
-      const button = screen.getByRole('button', { name: /icon button/i })
-      expect(button).toHaveAttribute('aria-label', 'Icon Button')
-    })
-
-    test('passes through additional HTML attributes', () => {
-      render(<E03Button label="Test Button" data-testid="custom-button" aria-describedby="description" />)
-      const button = screen.getByRole('button', { name: /test button/i })
-      expect(button).toHaveAttribute('data-testid', 'custom-button')
-      expect(button).toHaveAttribute('aria-describedby', 'description')
-    })
-  })
-})
-```
-
-## TypeScript Type Definitions
-
-Here's how I would define the TypeScript types in `e-03-button.d.ts`:
-
-```ts
-import { Icon } from 'lucide-react'
-
-// Variant Props (🎨)
-export interface VariantProps {
-  format: 'F-01 Primary' | 'F-02 Secondary' | 'F-03 Tertiary' | 'F-04 Link';
-  state: 'S-00 Default' | 'S-01 Hover' | 'S-02 Focused' | 'S-03 Disabled';
-  theme: 'T-01 Brand' | 'T-02 Grey';
-  size: 'M-01 Small' | 'M-02 Medium' | 'M-03 Large' | 'M-04 Extra Large';
-}
-
-// External Props (⚙️)
-export interface ExternalProps {
-  iconPosition: 'None' | 'Leading' | 'Trailing' | 'Only';
-}
-
-// Data Props (📦)
-export interface DataProps {
-  label: string;
-  icon: Icon;
-}
-
-// Component Props
-export interface E03ButtonProps 
-  extends VariantProps, 
-    ExternalProps,
-    DataProps,
-    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {}
-```
-
-## Examples of Component Usage
-
-Here are examples of how to use the E-03 Button component with different variants:
-
-```tsx
-// Format Variants
-// Primary button (default)
-<E03Button label="Primary Button" />
-
-// Secondary button
+// Secondary button with label
 <E03Button 
   format="F-02 Secondary"
-  label="Secondary Button" 
+  label="Secondary Button"
+  onClick={() => handleClick()}
 />
 
-// Tertiary button
+// Tertiary button with label
 <E03Button 
   format="F-03 Tertiary"
-  label="Tertiary Button" 
+  label="Tertiary Button"
+  onClick={() => handleClick()}
 />
 
-// Link button
+// Link button with label
 <E03Button 
   format="F-04 Link"
-  label="Link Button" 
+  label="Link Button"
+  onClick={() => handleClick()}
 />
 
-// State Variants
-// Default state (default)
-<E03Button label="Default State" />
-
-// Hover state (typically applied via CSS, but can be forced)
+// Button with leading icon
 <E03Button 
-  state="S-01 Hover"
-  label="Hover State" 
-/>
-
-// Focused state
-<E03Button 
-  state="S-02 Focused"
-  label="Focused State" 
-/>
-
-// Disabled state
-<E03Button 
-  state="S-03 Disabled"
-  label="Disabled Button" 
-/>
-
-// Theme Variants
-// Brand theme (default)
-<E03Button label="Brand Theme" />
-
-// Grey theme
-<E03Button 
-  theme="T-02 Grey"
-  label="Grey Theme" 
-/>
-
-// Size Variants
-// Small size
-<E03Button 
-  size="M-01 Small"
-  label="Small Button" 
-/>
-
-// Medium size (default)
-<E03Button 
-  size="M-02 Medium"
-  label="Medium Button" 
-/>
-
-// Large size
-<E03Button 
-  size="M-03 Large"
-  label="Large Button" 
-/>
-
-// Extra Large size
-<E03Button 
-  size="M-04 Extra Large"
-  label="Extra Large Button" 
-/>
-
-// Icon Position Variants
-// No icon (default)
-<E03Button label="No Icon" />
-
-// Leading icon
-<E03Button 
+  format="F-01 Primary"
   iconPosition="Leading"
-  icon={Download}
-  label="Leading Icon" 
+  icon="E-10 Circle"
+  label="Button with Leading Icon"
+  onClick={() => handleClick()}
 />
 
-// Trailing icon
+// Button with trailing icon
 <E03Button 
+  format="F-01 Primary"
   iconPosition="Trailing"
-  icon={ArrowRight}
-  label="Trailing Icon" 
+  icon="E-10 Circle"
+  label="Button with Trailing Icon"
+  onClick={() => handleClick()}
 />
 
-// Icon only
+// Icon-only button
 <E03Button 
+  format="F-01 Primary"
   iconPosition="Only"
-  icon={Plus}
-  aria-label="Add Item" 
+  icon="E-10 Circle"
+  onClick={() => handleClick()}
 />
 
-// Combined Variants
-// Secondary button with leading icon and large size
+// Small button
 <E03Button 
-  format="F-02 Secondary"
+  format="F-01 Primary"
+  size="M-01 Small"
+  label="Small Button"
+  onClick={() => handleClick()}
+/>
+
+// Medium button
+<E03Button 
+  format="F-01 Primary"
+  size="M-02 Medium"
+  label="Medium Button"
+  onClick={() => handleClick()}
+/>
+
+// Large button
+<E03Button 
+  format="F-01 Primary"
   size="M-03 Large"
-  iconPosition="Leading"
-  icon={Download}
-  label="Download File" 
+  label="Large Button"
+  onClick={() => handleClick()}
 />
 
-// Tertiary button with trailing icon in grey theme
+// Extra large button
 <E03Button 
-  format="F-03 Tertiary"
+  format="F-01 Primary"
+  size="M-04 Extra Large"
+  label="Extra Large Button"
+  onClick={() => handleClick()}
+/>
+
+// Button with grey theme
+<E03Button 
+  format="F-01 Primary"
   theme="T-02 Grey"
-  iconPosition="Trailing"
-  icon={ArrowRight}
-  label="Next Step" 
+  label="Grey Theme Button"
+  onClick={() => handleClick()}
 />
 
-// Disabled primary button with leading icon
+// Button in hover state
 <E03Button 
-  state="S-03 Disabled"
-  iconPosition="Leading"
-  icon={Save}
-  label="Save Changes" 
+  format="F-01 Primary"
+  state="S-01 Hover"
+  label="Hover State Button"
+  onClick={() => handleClick()}
 />
+
+// Button in focused state
+<E03Button 
+  format="F-01 Primary"
+  state="S-02 Focused"
+  label="Focused State Button"
+  onClick={() => handleClick()}
+/>
+
+// Disabled button
+<E03Button 
+  format="F-01 Primary"
+  state="S-03 Disabled"
+  label="Disabled Button"
+  disabled
+  onClick={() => handleClick()}
+/>
+
+// Usage in a form
+<form onSubmit={handleSubmit}>
+  <div className="space-y-4">
+    {/* Form fields would go here */}
+    <div className="flex justify-end space-x-3 mt-6">
+      <E03Button 
+        format="F-03 Tertiary"
+        label="Cancel"
+        onClick={() => handleCancel()}
+      />
+      <E03Button 
+        format="F-01 Primary"
+        label="Submit"
+        type="submit"
+      />
+    </div>
+  </div>
+</form>
+
+// Usage in a card with icon buttons
+<div className="flex justify-between items-center p-4 border rounded-lg">
+  <h3 className="text-lg font-semibold">Card Title</h3>
+  <div className="flex space-x-2">
+    <E03Button 
+      format="F-03 Tertiary"
+      iconPosition="Only"
+      icon="E-10 Circle"
+      size="M-01 Small"
+      aria-label="Edit"
+      onClick={() => handleEdit()}
+    />
+    <E03Button 
+      format="F-03 Tertiary"
+      iconPosition="Only"
+      icon="E-10 Circle"
+      size="M-01 Small"
+      aria-label="Delete"
+      onClick={() => handleDelete()}
+    />
+  </div>
+</div>

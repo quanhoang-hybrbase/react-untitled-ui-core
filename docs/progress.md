@@ -1,4 +1,4 @@
-# Work Logs
+# Work Progress Logs
 
 ## 2025-03-15
 
