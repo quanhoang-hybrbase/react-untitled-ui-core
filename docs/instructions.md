@@ -19,37 +19,46 @@ This task is to create a implementation plan of how you would create a React com
 
 ## Input
 
-- Figma Link: https://www.figma.com/design/GezJK336BOErAZ6Dm71c3K/%E2%9D%96-Untitled-UI-Design-System?node-id=1046-8088&t=LVZ46m4aRxdgqZo0-4
+- Figma Link: https://www.figma.com/design/GezJK336BOErAZ6Dm71c3K/%E2%9D%96-Untitled-UI-Design-System?node-id=8657-74758&t=8TInoGe4p4V3kKke-4
 - File key: `GezJK336BOErAZ6Dm71c3K`
-- Figma Node Id: `1046-8088`
+- Figma Node Id: `8657-74758`
 - Access token: get `FIGMA_ACCESS_TOKEN` from `.env` file at the root directory of the project
 
 ## Figma Documentation
-Component Name: Composite/Badges/C-01 Badge Group
+Component Name: Element/Buttons/E-04 Destructive Button
 
-Component Description: A Badge Group is a UI component that organizes and displays multiple badges in a compact, visually cohesive arrangement.
+Component Description: A Destructive Button is a type of action button used to perform critical or irreversible actions, typically associated with deletion, removal, or significant changes that may impact data or user settings. It is designed to draw attention and caution the user before proceeding.
 
 1. Variant Props (🎨): Properties that controls different aspects of the component.
 
-🎨 Format: F-01 Leading (default value), F-02 Trailing, F-03 Leading With Icon, F-04 Trailing With Icon
+🎨 Format: F-01 Primary (default value), F-02 Secondary, F-03 Tertiary, F-04 Link
 This prop specifies what the component does or what kind of content it displays. It influences the component's appearance and behavior.
 
-🎨 Theme: T-01 Brand (default value), T-02 Gray, T-03 Error, T-04 Warning, T-05 Success
-This prop controls the component's visual style, primarily color schemes.
+🎨 State: S-00 Default (default value), S-01 Hover, S-02 Focused, S-03 Disabled
+This prop differentiates visual representations of the component based on user interaction. These visual changes help users understand what they can do with the component and if it's responding to their actions.
 
-🎨 Size: M-01 Medium (default value), M-02 Large
+🎨 Size: M-01 Small (default value), M-02 Medium, M-03 Large, M-04 Extra Large
 This prop differentiates how big or small a component appears on the screen. Different sizes help organize content and make it easier to read.
 
-2. Data Props (📦): Properties that carry the actual content that the component displays. They represent the information presented to the use.
+2. External Props (➡️): Properties that enable controlled, indirect external manipulation of a component. They provide a way for component users to influence certain aspects of a component's behavior or data without directly modifying its internal configuration.
 
-📦 dataLabel: “Badge” (default value)
-This prop determines the text content displayed in the Badge's Label.
+➡️ externalIconPosition: None (default value), Leading, Trailing, Only
+This prop controls the position of the icon within the Button.
 
-📦 dataIcon: “E-22 Plus” (default value)
-This prop specifies the Icon displayed on the Badge.
+If the Button has an Icon positioned to the left of the Label, then externalIconPosition is “Leading”
+If the Button has an Icon positioned to the right of the Label, then externalIconPosition is “Trailing”
+If the Button contains only an Icon without a Label, then externalIconPosition is “Only”
+If the Button contains only a Label without an Icon, then externalIconPosition is “None”
+
+3. Data Props (📦): Properties that carry the actual content that the component displays. They represent the information presented to the use.
+
+📦 dataLabel: “Button” (default value)
+This prop determines the text content displayed in the Button's Label.
+
+📦 dataIcon: “E-10 Circle” (default value)
+This prop specifies the Icon displayed on the Button.
 
 ## Expected Output
-
 - Scaffold correctly the component folder and naming (step 2 - must follow standard naming convention and folder structure)
 - Inside the README file of the component, under section "UI Specification", documents all the necessary information to prepare for the development of the React component in the following order:
   - Component Name (step 2)
@@ -58,8 +67,9 @@ This prop specifies the Icon displayed on the Badge.
   - Props Definition as Typescript types (step 4)
   - Component folder structure (step 6)
   - Tailwind Variant styling configuration (step 6)
+  - React file JSX structure (step 6)
   - Example(s) of component usage (step 7)
-- Asking for confirmation of the next instruction (Instruction 1.02)
+- Asking for confirmation in chat of the next instruction (Instruction 1.02). Do not put this into the README file.
 
 ## Steps
 
@@ -106,6 +116,7 @@ First, notify the instruction you are working on. In this case, "Instruction 1.0
 - Use the Figma Documentation to define the React props for this component in Typescript types file grouped by four interfaces: Variant Props, External Props, Data Props, and Config Props. Skip any if the prop is not used in the component.
 - Always use the exact prop names and values from the Figma Documentation
 - Follow strictly the "Typescript Props Type Template" in the "./code-patterns.md"
+- Once completed this step, stop working on this file until your have all the information returned from step 5
 
 **Knowledge**:
 - The provided Figma Documentation is your source of truth
@@ -113,7 +124,7 @@ First, notify the instruction you are working on. In this case, "Instruction 1.0
 ### **5. Make request to Figma API of the component**
 
 **Task**:
-- Make the curl request to `https://api.figma.com/v1/files/{fileKey}/nodes?ids={nodeId}` where fileKey is the Figma File Key and nodeId is the Figma Node Id from the input
+- Make the curl request to `https://api.figma.com/v1/files/{fileKey}/nodes?ids={nodeId}` where fileKey is the Figma File Key and nodeId is the Figma Node Id from the [Input](#input)
 - If and only if the API is not available, try the Figma MCP tool
 - If and only if the MCP tool is not available, inform me and stop what you are doing
 - Once you get the API response, if you see the master component name does not match the component name in the Figma Documentation, immediately inform me and stop what you are doing
@@ -128,7 +139,8 @@ $ curl -sH 'X-Figma-Token: 29-206...'
 ### **6. Plan the component structure and variants configuration**
 
 **Task**:
-- From the API response of step 5, look through the detailed layer structure and styling values of all the variants to analyze the component structure. 
+- Make sure you have the API response from step 5
+- From the API response, look through the detailed layer structure and styling values of all the variants to analyze the component structure. 
 - Then, from your careful analysis, document in the README file:
   - How you would structure this component folder. The component folder structure should display as a tree for readability.
   - How you would define this component in JSX file at a high level
@@ -150,13 +162,14 @@ $ curl -sH 'X-Figma-Token: 29-206...'
   - The layer "Part = [Layout Type]" to indicate layout-specific layers. Examples: Part = Flex, Part = Grid, Part = Flex Item, Part = Flex Item 1.
   - Use Part = [Group Description] to indicate group-specific layers. Examples: Part = Links, Part = Navigation, Part = List, Part = Wrapper, Part = Elements.
 - Use the Figma layers structure as references to define appropriate semantic HTML tags and configure the "slot" parts in the Tailwind Variants configuration. Look up and utilize the concept of slots from this documentation https://www.tailwind-variants.org/docs/slots 
-- The JSX structure should follow the "React Component Template" defined in "./code-patterns.md"
-- The Tailwind configuration should follow the "Tailwind Variant Configuration Template" defined in "./code-patterns.md"
+- The JSX structure must follow the "React Component Template" defined in "./code-patterns.md"
+- The Tailwind configuration must follow the "Tailwind Variant Configuration Template" defined in "./code-patterns.md"
 
 ### **7. Create example(s) usage**
 
 **Task**: 
-- Create all examples of how would you use this component with all the possible props values
+- Review the variant configuration again to make sure that you have mapped the right prop names and values with Figma values from API response. If not, you need to go back to step 5 [5. Make request to Figma API of the component](#5-make-request-to-figma-api-of-the-component)
+- Otherwise, create all examples of how would you use this component with all the possible props values
 
 ### **8. Confirmation on next step**
 
@@ -166,7 +179,7 @@ $ curl -sH 'X-Figma-Token: 29-206...'
 ## Important Notes
 
 - Don't generate any code or any other component files but README.md. This task is only in the planning phase
-- Accuracy and completeness are of utmost importance. When clarification is required, ask for it.
+- The "Figma Documentation" and the Figma API response of the component are your sources of truth. Do not generate anything based on your assumption 
 - Use theme variables from `global.css`, or Tailwind utilities only for styling consistency. Never use arbitrary values.
 - Ignore the "Metadata" section of this instruction
 
@@ -194,8 +207,9 @@ Ensure that you have met all the requirement from previous instructions
 ## Important Notes
 - Common mistakes to AVOID:
   - Not making the API request to Figma API or not calling the proper Figma MCP tool
-  - Not utilizing the Figma Documentation and API response to document the component in the README.md file
+  - Not utilizing the Figma Documentation to document the component in the README.md file
   - Not following strictly the Tailwind variant configuration defined in "docs/code-patterns.md"
+  - Not properly utilizing the styling values from the Figma API response (colors, spacing, typography, etc.) when configuring the Tailwind variants
   - Not following strictly the Typescript types definition when defining React Component props
   - Add any extra props of your own interpretation in the Typescript types definition
   - Not using the correct naming convention for the React component (E##ComponentName format, e.g. "E00SocialIcon" instead of "SocialIcon")
@@ -204,8 +218,8 @@ Ensure that you have met all the requirement from previous instructions
   - Using incorrect prop names that don't match the Figma Documentation AND the rules defined in "Typescript Props Type Template" rules in "docs/code-patterns.md"  (e.g., using "hasLabel" instead of "supportingText" or "configIconPosition" instead of "iconPosition")
   - Not organizing sections in the README file in the correct order as specified in the Expected Output
   - Not following the standard component folder structure as defined in the project rules (e.g., missing the parts/ folder for the component implementation)
+  - Not following strictly the React Component Template defined in "docs/code-patterns.md"
 
 <br/>
 
 # Instruction 1.03: Implementation
-
