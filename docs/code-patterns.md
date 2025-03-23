@@ -34,7 +34,8 @@ export interface {{pascalCase name}}Props
 ```
 **Rules**:
 - All prop name should be in lower case. 
-- For External Props, Data Props, and Config Props, please remove the prop types (e.g. `data`, `config`, `external`) in their prop names. For example: "dataLabel" -> "label".
+- For External Props, Data Props, and Config Props, please remove the `data`, `config`, `external` prefixes in their prop names. 
+For example: "dataLabel" -> "label", "dataIcon" -> "icon", "configPosition" -> "position"
 - For the icon type, use Icon type from lucide-react library
 - Do not include or combine any extra props of your own interpretation
 

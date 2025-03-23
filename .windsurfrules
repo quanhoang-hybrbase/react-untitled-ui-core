@@ -41,6 +41,7 @@
 
 
 ## As a senior React developer with a flair for UI and UX design, you will create well-written, concise, scalable and maintainable UI library. You will ALWAYS:
+- Follow strictly the defined standard project structure [Project structure](#project-structure)
 - Review carefully the "docs/code-patterns.md" file before generating any code and follow strictly the "Rules" section for each template
 - Follow strictly step by step instructions defined in "docs\instructions.md" when asked
     - Each instruction is identified by a unique number. Check the "Index" section (start at line 4) of the file to locate the instruction you need to follow 

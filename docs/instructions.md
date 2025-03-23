@@ -19,30 +19,34 @@ This task is to create a implementation plan of how you would create a React com
 
 ## Input
 
-- Figma Link: https://www.figma.com/design/GezJK336BOErAZ6Dm71c3K/%E2%9D%96-Untitled-UI-Design-System?node-id=1256-130788&t=H6xdESY7uXlKHh9i-4
+- Figma Link: https://www.figma.com/design/GezJK336BOErAZ6Dm71c3K/%E2%9D%96-Untitled-UI-Design-System?node-id=1046-8088&t=LVZ46m4aRxdgqZo0-4
 - File key: `GezJK336BOErAZ6Dm71c3K`
-- Figma Node Id: `1256-130788`
+- Figma Node Id: `1046-8088`
 - Access token: get `FIGMA_ACCESS_TOKEN` from `.env` file at the root directory of the project
 
 ## Figma Documentation
+Component Name: Composite/Badges/C-01 Badge Group
 
-### Component Name
+Component Description: A Badge Group is a UI component that organizes and displays multiple badges in a compact, visually cohesive arrangement.
 
-Element/Buttons/E-06 Social Button Group
+1. Variant Props (🎨): Properties that controls different aspects of the component.
 
-### Component Description
+🎨 Format: F-01 Leading (default value), F-02 Trailing, F-03 Leading With Icon, F-04 Trailing With Icon
+This prop specifies what the component does or what kind of content it displays. It influences the component's appearance and behavior.
 
-A Social Button Group is a UI component designed to display a collection of social buttons, typically used for user authentication or connection with third-party platforms. This component provides a streamlined and organized way to present multiple social login options, improving the user experience by offering flexibility and convenience
+🎨 Theme: T-01 Brand (default value), T-02 Gray, T-03 Error, T-04 Warning, T-05 Success
+This prop controls the component's visual style, primarily color schemes.
 
-### Variant Props 
+🎨 Size: M-01 Medium (default value), M-02 Large
+This prop differentiates how big or small a component appears on the screen. Different sizes help organize content and make it easier to read.
 
-Properties that controls different aspects of the component.
+2. Data Props (📦): Properties that carry the actual content that the component displays. They represent the information presented to the use.
 
-- **Format**: F-01 Buttons (default value), F-02 Icons  
-  This prop specifies what the component does or what kind of content it displays. It influences the component's appearance and behavior.
+📦 dataLabel: “Badge” (default value)
+This prop determines the text content displayed in the Badge's Label.
 
-- **Theme**: T-01 Brand Primary (default value), T-02 Brand Secondary, T-03 Custom Color  
-  This prop controls the component's visual style, primarily color schemes.
+📦 dataIcon: “E-22 Plus” (default value)
+This prop specifies the Icon displayed on the Badge.
 
 ## Expected Output
 
@@ -55,6 +59,7 @@ Properties that controls different aspects of the component.
   - Component folder structure (step 6)
   - Tailwind Variant styling configuration (step 6)
   - Example(s) of component usage (step 7)
+- Asking for confirmation of the next instruction (Instruction 1.02)
 
 ## Steps
 
@@ -187,9 +192,8 @@ Ensure that you have met all the requirement from previous instructions
 5. If you have met all the requirements, ask for my magic word "ok" to continue with the next instruction (Instruction 1.03)
 
 ## Important Notes
-
 - Common mistakes to AVOID:
-  - Not making the API request to Figma API
+  - Not making the API request to Figma API or not calling the proper Figma MCP tool
   - Not utilizing the Figma Documentation and API response to document the component in the README.md file
   - Not following strictly the Tailwind variant configuration defined in "docs/code-patterns.md"
   - Not following strictly the Typescript types definition when defining React Component props
@@ -197,7 +201,7 @@ Ensure that you have met all the requirement from previous instructions
   - Not using the correct naming convention for the React component (E##ComponentName format, e.g. "E00SocialIcon" instead of "SocialIcon")
   - Creating component-specific assets folders instead of using the global src/assets directory for all assets
   - Not including specific unit tests for component naming and props testing
-  - Using incorrect prop names that don't match the Figma Documentation (e.g., using "hasLabel" instead of "supportingText")
+  - Using incorrect prop names that don't match the Figma Documentation AND the rules defined in "Typescript Props Type Template" rules in "docs/code-patterns.md"  (e.g., using "hasLabel" instead of "supportingText" or "configIconPosition" instead of "iconPosition")
   - Not organizing sections in the README file in the correct order as specified in the Expected Output
   - Not following the standard component folder structure as defined in the project rules (e.g., missing the parts/ folder for the component implementation)
 
