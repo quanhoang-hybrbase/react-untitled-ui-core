@@ -1,113 +1,105 @@
-import Label from './components/element/E01-Label'
-import { labelMockData } from './components/element/E01-Label/e01-label.mock'
+import { E04DestructiveButton } from './components/element/Buttons/E-04-Destructive-Button'
+import { mockE04DestructiveButtonProps } from './components/element/Buttons/E-04-Destructive-Button/e-04-destructive-button.mock'
 
 function App() {
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold mb-8">Label Component Demo</h1>
+      <h1 className="text-2xl font-bold mb-8">E-04 Destructive Button Component Demo</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div className="border rounded-md p-4">
-          <h2 className="text-xl font-semibold mb-4">Size Variants</h2>
+          <h2 className="text-xl font-semibold mb-4">Format Variants</h2>
           <div className="space-y-4">
             <div className="flex items-center">
-              <Label {...labelMockData.extraSmall} />
-              <span className="ml-4 text-gray-500">extraSmall</span>
+              <E04DestructiveButton {...mockE04DestructiveButtonProps.primary} />
+              <span className="ml-4 text-gray-500">Primary (default)</span>
             </div>
             <div className="flex items-center">
-              <Label {...labelMockData.small} />
-              <span className="ml-4 text-gray-500">small</span>
+              <E04DestructiveButton {...mockE04DestructiveButtonProps.secondary} />
+              <span className="ml-4 text-gray-500">Secondary</span>
             </div>
             <div className="flex items-center">
-              <Label {...labelMockData.default} />
-              <span className="ml-4 text-gray-500">medium (default)</span>
+              <E04DestructiveButton {...mockE04DestructiveButtonProps.tertiary} />
+              <span className="ml-4 text-gray-500">Tertiary</span>
             </div>
             <div className="flex items-center">
-              <Label {...labelMockData.large} />
-              <span className="ml-4 text-gray-500">large</span>
-            </div>
-            <div className="flex items-center">
-              <Label {...labelMockData.extraLarge} />
-              <span className="ml-4 text-gray-500">extraLarge</span>
+              <E04DestructiveButton {...mockE04DestructiveButtonProps.link} />
+              <span className="ml-4 text-gray-500">Link</span>
             </div>
           </div>
         </div>
         
         <div className="border rounded-md p-4">
-          <h2 className="text-xl font-semibold mb-4">Special States</h2>
+          <h2 className="text-xl font-semibold mb-4">State Variants</h2>
           <div className="space-y-4">
             <div className="flex items-center">
-              <Label {...labelMockData.disabled} />
-              <span className="ml-4 text-gray-500">disabled</span>
+              <E04DestructiveButton {...mockE04DestructiveButtonProps.primary} />
+              <span className="ml-4 text-gray-500">Default</span>
             </div>
             <div className="flex items-center">
-              <div className="w-48 overflow-hidden">
-                <Label {...labelMockData.truncated} />
-              </div>
-              <span className="ml-4 text-gray-500">truncated</span>
+              <E04DestructiveButton {...mockE04DestructiveButtonProps.hover} />
+              <span className="ml-4 text-gray-500">Hover</span>
             </div>
             <div className="flex items-center">
-              <div className="w-48">
-                <Label {...labelMockData.multiline} />
-              </div>
-              <span className="ml-4 text-gray-500">multiline</span>
+              <E04DestructiveButton {...mockE04DestructiveButtonProps.focused} />
+              <span className="ml-4 text-gray-500">Focused</span>
             </div>
             <div className="flex items-center">
-              <Label {...labelMockData.srOnly} />
-              <span className="ml-4 text-gray-500">srOnly (hidden visually)</span>
+              <E04DestructiveButton {...mockE04DestructiveButtonProps.disabled} />
+              <span className="ml-4 text-gray-500">Disabled</span>
             </div>
           </div>
         </div>
       </div>
-      
-      <div className="border rounded-md p-4 mb-8">
-        <h2 className="text-xl font-semibold mb-4">Form Usage Example</h2>
-        <div className="max-w-md">
-          <div className="mb-4">
-            <Label 
-              text="Email Address" 
-              htmlFor="email-input" 
-              size="medium"
-            />
-            <input
-              id="email-input"
-              type="email"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
-              placeholder="Enter your email"
-            />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="border rounded-md p-4">
+          <h2 className="text-xl font-semibold mb-4">Size Variants</h2>
+          <div className="space-y-4">
+            <div className="flex items-center">
+              <E04DestructiveButton {...mockE04DestructiveButtonProps.small} />
+              <span className="ml-4 text-gray-500">Small</span>
+            </div>
+            <div className="flex items-center">
+              <E04DestructiveButton {...mockE04DestructiveButtonProps.primary} />
+              <span className="ml-4 text-gray-500">Medium (default)</span>
+            </div>
+            <div className="flex items-center">
+              <E04DestructiveButton {...mockE04DestructiveButtonProps.large} />
+              <span className="ml-4 text-gray-500">Large</span>
+            </div>
+            <div className="flex items-center">
+              <E04DestructiveButton {...mockE04DestructiveButtonProps.extraLarge} />
+              <span className="ml-4 text-gray-500">Extra Large</span>
+            </div>
           </div>
-          
-          <div className="mb-4">
-            <Label 
-              text="Password" 
-              htmlFor="password-input" 
-              size="medium"
-            />
-            <input
-              id="password-input"
-              type="password"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
-              placeholder="Enter your password"
-            />
-          </div>
-          
-          <div className="mb-4">
-            <Label 
-              text="This field is disabled" 
-              htmlFor="disabled-input" 
-              disabled={true}
-            />
-            <input
-              id="disabled-input"
-              type="text"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md opacity-50 cursor-not-allowed"
-              disabled
-            />
+        </div>
+        
+        <div className="border rounded-md p-4">
+          <h2 className="text-xl font-semibold mb-4">Icon Variants</h2>
+          <div className="space-y-4">
+            <div className="flex items-center">
+              <E04DestructiveButton {...mockE04DestructiveButtonProps.leadingIcon} />
+              <span className="ml-4 text-gray-500">Leading Icon</span>
+            </div>
+            <div className="flex items-center">
+              <E04DestructiveButton {...mockE04DestructiveButtonProps.trailingIcon} />
+              <span className="ml-4 text-gray-500">Trailing Icon</span>
+            </div>
+            <div className="flex items-center">
+              <E04DestructiveButton {...mockE04DestructiveButtonProps.iconOnly} />
+              <span className="ml-4 text-gray-500">Icon Only</span>
+            </div>
+            <div className="flex items-center">
+              <E04DestructiveButton 
+                {...mockE04DestructiveButtonProps.primary} 
+                onClick={() => alert('Destructive action triggered!')}
+              />
+              <span className="ml-4 text-gray-500">With Click Handler</span>
+            </div>
           </div>
         </div>
       </div>
-      
-      
     </div>
   )
 }

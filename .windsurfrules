@@ -16,6 +16,8 @@
            - [Component Category] (the general group or function of the component (e.g., Cards, Buttons).)
                 - [component-name] / 
                     - parts/ (the sub-components and the component itself)
+                    - stories / (stories for this component)
+                        - [component-name].stories.tsx (story file for this component)
                     - tests/ (unit tests for this component and its parts)
                     - hooks/ (hooks used only by this component)
                     - providers / (provider used for this component)

@@ -32,7 +32,7 @@ export interface {{pascalCase name}}Props
     {{pascalCase name}}DataProps,
     Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {}
 ```
-**Rules**:
+### Rules
 - All prop name should be in lower case. 
 - For External Props, Data Props, and Config Props, please remove the `data`, `config`, `external` prefixes in their prop names. 
 For example: "dataLabel" -> "label", "dataIcon" -> "icon", "configPosition" -> "position"
@@ -117,3 +117,6 @@ const {{camelCase name}}Config = tv({
 export type {{pascalCase name}}VariantProps = VariantProps<typeof {{camelCase name}}Config>
 export { {{camelCase name}}Config }
 ```
+
+### Rules
+- All the component states should be handled via the `state` prop

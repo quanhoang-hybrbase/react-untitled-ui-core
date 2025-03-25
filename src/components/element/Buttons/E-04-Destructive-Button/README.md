@@ -1,200 +1,82 @@
 # E-04 Destructive Button
 
-## Component Description
-A Destructive Button is a type of action button used to perform critical or irreversible actions, typically associated with deletion, removal, or significant changes that may impact data or user settings. It is designed to draw attention and caution the user before proceeding.
+## Figma Documentation
 
-## UI Specification
+### Figma Link
+https://www.figma.com/design/GezJK336BOErAZ6Dm71c3K/%E2%9D%96-Untitled-UI-Design-System?node-id=8657-74758&t=8TInoGe4p4V3kKke-4
 
 ### Component Name
 Element/Buttons/E-04 Destructive Button
 
-### Component Purpose
-A Destructive Button is used to perform critical or irreversible actions, typically associated with deletion, removal, or significant changes that may impact data or user settings. It is designed to draw attention and caution the user before proceeding.
+### Component Description
+A Destructive Button is a type of action button used to perform critical or irreversible actions, typically associated with deletion, removal, or significant changes that may impact data or user settings. It is designed to draw attention and caution the user before proceeding.
 
-### Unit test cases to validate props misconfiguration
+## Implementation Plan
+
+### Unit Test Cases
 
 #### Component Naming Tests
-```jsx
-describe('E04DestructiveButton', () => {
-  it('should have the correct display name', () => {
-    expect(E04DestructiveButton.displayName).toBe('E04DestructiveButton');
-  });
+- **Test Scenario**: Verify component has the correct display name
+  - **Input**: `E04DestructiveButton.displayName`
+  - **Expected Output**: "E04DestructiveButton"
 
-  it('should have the correct data-comp attribute', () => {
-    const { getByTestId } = render(<E04DestructiveButton data-testid="test-button" />);
-    const button = getByTestId('test-button');
-    expect(button).toHaveAttribute('data-comp', 'e-04-destructive-button');
-  });
-});
-```
+- **Test Scenario**: Verify component has the correct data-comp attribute
+  - **Input**: `<E04DestructiveButton data-testid="test-button" />`
+  - **Expected Output**: Element with data-comp attribute equal to "e-04-destructive-button"
 
-#### Variant Props Tests
-```jsx
-describe('E04DestructiveButton Variant Props', () => {
-  it('should apply the correct format variant', () => {
-    const { getByTestId } = render(
-      <E04DestructiveButton 
-        data-testid="test-button" 
-        format="F-01 Primary" 
-      />
-    );
-    const button = getByTestId('test-button');
-    expect(button).toHaveAttribute('data-variant', expect.stringContaining('F-01 Primary'));
-  });
+#### Props Testing
 
-  it('should apply the correct state variant', () => {
-    const { getByTestId } = render(
-      <E04DestructiveButton 
-        data-testid="test-button" 
-        state="S-01 Hover" 
-      />
-    );
-    const button = getByTestId('test-button');
-    expect(button).toHaveAttribute('data-variant', expect.stringContaining('S-01 Hover'));
-  });
+- **Test Scenario**: Verify default format prop is applied
+  - **Input**: `<E04DestructiveButton data-testid="test-button" />`
+  - **Expected Output**: Element with format="F-01 Primary"
 
-  it('should apply the correct size variant', () => {
-    const { getByTestId } = render(
-      <E04DestructiveButton 
-        data-testid="test-button" 
-        size="M-03 Large" 
-      />
-    );
-    const button = getByTestId('test-button');
-    expect(button).toHaveAttribute('data-variant', expect.stringContaining('M-03 Large'));
-  });
+- **Test Scenario**: Verify custom format prop is applied
+  - **Input**: `<E04DestructiveButton data-testid="test-button" format="F-02 Secondary" />`
+  - **Expected Output**: Element with format="F-02 Secondary"
 
-  it('should apply default variants when not specified', () => {
-    const { getByTestId } = render(
-      <E04DestructiveButton 
-        data-testid="test-button" 
-      />
-    );
-    const button = getByTestId('test-button');
-    expect(button).toHaveAttribute('data-variant', expect.stringContaining('F-01 Primary'));
-    expect(button).toHaveAttribute('data-variant', expect.stringContaining('S-00 Default'));
-    expect(button).toHaveAttribute('data-variant', expect.stringContaining('M-01 Small'));
-  });
-});
-```
+- **Test Scenario**: Verify default state prop is applied
+  - **Input**: `<E04DestructiveButton data-testid="test-button" />`
+  - **Expected Output**: Element with state="S-00 Default"
 
-#### External Props Tests
-```jsx
-describe('E04DestructiveButton External Props', () => {
-  it('should render with the correct icon position', () => {
-    const { getByTestId } = render(
-      <E04DestructiveButton 
-        data-testid="test-button" 
-        iconPosition="Leading" 
-        label="Button"
-        icon="E-10 Circle"
-      />
-    );
-    const button = getByTestId('test-button');
-    const iconElement = button.querySelector('[data-slot="icon"]');
-    const labelElement = button.querySelector('[data-slot="label"]');
-    
-    expect(iconElement).toBeInTheDocument();
-    expect(labelElement).toBeInTheDocument();
-    expect(button.firstElementChild).toBe(iconElement); // Icon should be first (leading)
-  });
+- **Test Scenario**: Verify custom state prop is applied
+  - **Input**: `<E04DestructiveButton data-testid="test-button" state="S-01 Hover" />`
+  - **Expected Output**: Element with state="S-01 Hover"
 
-  it('should render with trailing icon position', () => {
-    const { getByTestId } = render(
-      <E04DestructiveButton 
-        data-testid="test-button" 
-        iconPosition="Trailing" 
-        label="Button"
-        icon="E-10 Circle"
-      />
-    );
-    const button = getByTestId('test-button');
-    const iconElement = button.querySelector('[data-slot="icon"]');
-    const labelElement = button.querySelector('[data-slot="label"]');
-    
-    expect(iconElement).toBeInTheDocument();
-    expect(labelElement).toBeInTheDocument();
-    expect(button.lastElementChild).toBe(iconElement); // Icon should be last (trailing)
-  });
+- **Test Scenario**: Verify default size prop is applied
+  - **Input**: `<E04DestructiveButton data-testid="test-button" />`
+  - **Expected Output**: Element with size="M-02 Medium"
 
-  it('should render with only icon', () => {
-    const { getByTestId } = render(
-      <E04DestructiveButton 
-        data-testid="test-button" 
-        iconPosition="Only" 
-        icon="E-10 Circle"
-      />
-    );
-    const button = getByTestId('test-button');
-    const iconElement = button.querySelector('[data-slot="icon"]');
-    const labelElement = button.querySelector('[data-slot="label"]');
-    
-    expect(iconElement).toBeInTheDocument();
-    expect(labelElement).not.toBeInTheDocument();
-  });
+- **Test Scenario**: Verify custom size prop is applied
+  - **Input**: `<E04DestructiveButton data-testid="test-button" size="M-01 Small" />`
+  - **Expected Output**: Element with size="M-01 Small"
 
-  it('should render with only label', () => {
-    const { getByTestId } = render(
-      <E04DestructiveButton 
-        data-testid="test-button" 
-        iconPosition="None" 
-        label="Button"
-      />
-    );
-    const button = getByTestId('test-button');
-    const iconElement = button.querySelector('[data-slot="icon"]');
-    const labelElement = button.querySelector('[data-slot="label"]');
-    
-    expect(iconElement).not.toBeInTheDocument();
-    expect(labelElement).toBeInTheDocument();
-  });
-});
-```
+- **Test Scenario**: Verify default iconPosition prop is applied
+  - **Input**: `<E04DestructiveButton data-testid="test-button" />`
+  - **Expected Output**: Element with iconPosition="None"
 
-#### Data Props Tests
-```jsx
-describe('E04DestructiveButton Data Props', () => {
-  it('should render with the correct label text', () => {
-    const { getByTestId } = render(
-      <E04DestructiveButton 
-        data-testid="test-button" 
-        label="Delete Account" 
-      />
-    );
-    const button = getByTestId('test-button');
-    expect(button).toHaveTextContent('Delete Account');
-  });
+- **Test Scenario**: Verify custom iconPosition prop is applied
+  - **Input**: `<E04DestructiveButton data-testid="test-button" iconPosition="Leading" />`
+  - **Expected Output**: Element with iconPosition="Leading"
 
-  it('should render with the correct icon', () => {
-    const { getByTestId } = render(
-      <E04DestructiveButton 
-        data-testid="test-button" 
-        icon="E-10 Circle" 
-        iconPosition="Leading"
-      />
-    );
-    const button = getByTestId('test-button');
-    const iconElement = button.querySelector('[data-slot="icon"]');
-    expect(iconElement).toBeInTheDocument();
-    // Additional checks for the specific icon would depend on implementation
-  });
+- **Test Scenario**: Verify custom label prop is applied
+  - **Input**: `<E04DestructiveButton data-testid="test-button" label="Delete" />`
+  - **Expected Output**: Element with text content "Delete"
 
-  it('should render with default label when not specified', () => {
-    const { getByTestId } = render(
-      <E04DestructiveButton 
-        data-testid="test-button" 
-        iconPosition="None"
-      />
-    );
-    const button = getByTestId('test-button');
-    expect(button).toHaveTextContent('Button');
-  });
-});
-```
+- **Test Scenario**: Verify custom icon prop is applied
+  - **Input**: `<E04DestructiveButton data-testid="test-button" icon="E-10 Circle" iconPosition="Leading" />`
+  - **Expected Output**: Element with icon component rendered
 
-### Props Definition as Typescript types
+- **Test Scenario**: Verify no label is rendered when iconPosition is "Only"
+  - **Input**: `<E04DestructiveButton data-testid="test-button" iconPosition="Only" icon="E-10 Circle" label="Delete" />`
+  - **Expected Output**: Element with icon component rendered and no visible label
 
-```ts
+- **Test Scenario**: Verify default label is applied when not specified
+  - **Input**: `<E04DestructiveButton data-testid="test-button" iconPosition="None" />`
+  - **Expected Output**: Element with text content "Button"
+
+### Typescript Types
+
+```typescript
 // e-04-destructive-button.d.ts
 // Variant Props (🎨)
 export interface E04DestructiveButtonVariantProps {
@@ -217,318 +99,201 @@ export interface E04DestructiveButtonDataProps {
 // Component Props
 export interface E04DestructiveButtonProps 
   extends E04DestructiveButtonVariantProps, 
-    E04DestructiveButtonExternalProps,
-    E04DestructiveButtonDataProps,
+    E04DestructiveButtonExternalProps, 
+    E04DestructiveButtonDataProps, 
     Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {}
 ```
 
-### Component folder structure
-```
-E-04-Destructive-Button/
-├── README.md
-├── e-04-destructive-button.tsx
-├── e-04-destructive-button.d.ts
-├── e-04-destructive-button.config.ts
-├── index.ts
-└── hooks/
-    └── use-e-04-destructive-button.ts
-```
+### Component Structure
 
-### Tailwind Variant styling configuration
+#### High-level HTML markup structure
 
-```ts
-// e-04-destructive-button.config.ts
-import { tv, type VariantProps } from 'tailwind-variants'
-
-const e04DestructiveButtonConfig = tv({
-  slots: {
-    // From API: Common properties across variants - rounded corners (borderRadius: "8px")
-    base: 'inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-    icon: 'flex-shrink-0',
-    label: 'text-center',
-  },
-  variants: {
-    format: {
-      'F-01 Primary': {
-        // From API: fill_3QWS8H - destructive background color
-        base: 'bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive',
-        // From API: textStyle style_M6XX8P - fontWeight: 600
-        label: 'font-semibold',
-      },
-      'F-02 Secondary': {
-        // From API: fill_11S717 - white/transparent background
-        // From API: stroke_PM49BP - border with destructive color
-        base: 'bg-white border border-destructive text-destructive hover:bg-destructive/10 focus-visible:ring-destructive',
-        // From API: textStyle style_P7P4NE - fontWeight: 600
-        label: 'font-semibold',
-      },
-      'F-03 Tertiary': {
-        // From API: no background fill, no border
-        base: 'bg-transparent text-destructive hover:bg-destructive/10 focus-visible:ring-destructive',
-        // From API: medium weight text
-        label: 'font-medium',
-      },
-      'F-04 Link': {
-        // From API: no padding, text only, underline styling
-        base: 'bg-transparent text-destructive underline-offset-4 hover:underline focus-visible:ring-destructive p-0 h-auto',
-        label: 'font-medium',
-      },
-    },
-    state: {
-      'S-00 Default': {
-        // Default state - no additional styling
-        base: '',
-      },
-      'S-01 Hover': {
-        // From API: effect_L6Q1SS - hover effect
-        base: 'cursor-pointer shadow-sm',
-      },
-      'S-02 Focused': {
-        // From API: focus state with ring
-        base: 'ring-2 ring-offset-2 ring-destructive',
-      },
-      'S-03 Disabled': {
-        // From API: opacity reduction
-        base: 'opacity-50 pointer-events-none',
-      },
-    },
-    size: {
-      'M-01 Small': {
-        // From API: layout_XRRRTV - padding: 8px 14px
-        base: 'py-2 px-3.5',
-        // From API: icon size proportional to button
-        icon: 'h-4 w-4',
-        // From API: fontSize smaller - 14px
-        label: 'text-sm',
-      },
-      'M-02 Medium': {
-        // From API: layout_5MJ63F - padding: 10px 18px
-        base: 'py-2.5 px-4.5',
-        // From API: icon size - 20px
-        icon: 'h-5 w-5',
-        // From API: fontSize - 16px
-        label: 'text-base',
-      },
-      'M-03 Large': {
-        // From API: layout_CLRVX0 - padding: 12px 20px
-        base: 'py-3 px-5',
-        // From API: icon size - 24px
-        icon: 'h-6 w-6',
-        // From API: fontSize - 18px
-        label: 'text-lg',
-      },
-      'M-04 Extra Large': {
-        // From API: larger padding - 14px 24px
-        base: 'py-3.5 px-6',
-        // From API: icon size - 28px
-        icon: 'h-7 w-7',
-        // From API: fontSize - 20px
-        label: 'text-xl',
-      },
-    },
-    // From API: different layout configurations for icon positions
-    iconPosition: {
-      'None': {
-        // From API: only text node present
-        base: '',
-        icon: 'hidden',
-        label: '',
-      },
-      'Leading': {
-        // From API: layout_KH73BA - gap: 8px
-        base: 'flex-row',
-        icon: 'mr-2',
-        label: '',
-      },
-      'Trailing': {
-        // From API: reverse layout with gap
-        base: 'flex-row-reverse',
-        icon: 'ml-2',
-        label: '',
-      },
-      'Only': {
-        // From API: layout_CAESBC - padding: 8px (square button)
-        base: 'p-2',
-        icon: '',
-        label: 'hidden',
-      },
-    },
-  },
-  defaultVariants: {
-    format: 'F-01 Primary',
-    state: 'S-00 Default',
-    size: 'M-01 Small',
-    iconPosition: 'None',
-  },
-  compoundVariants: [
-    // From API: square layouts for icon-only variants with specific sizes
-    {
-      iconPosition: 'Only',
-      size: 'M-01 Small',
-      class: {
-        // From API: square button with equal height/width
-        base: 'h-9 w-9 p-2',
-      },
-    },
-    {
-      iconPosition: 'Only',
-      size: 'M-02 Medium',
-      class: {
-        base: 'h-10 w-10 p-2.5',
-      },
-    },
-    {
-      iconPosition: 'Only',
-      size: 'M-03 Large',
-      class: {
-        base: 'h-11 w-11 p-3',
-      },
-    },
-    {
-      iconPosition: 'Only',
-      size: 'M-04 Extra Large',
-      class: {
-        base: 'h-12 w-12 p-3.5',
-      },
-    },
-  ],
-})
-
-export type E04DestructiveButtonVariantProps = VariantProps<typeof e04DestructiveButtonConfig>
-export { e04DestructiveButtonConfig }
-```
-
-### React file JSX structure
-
-```tsx
-// e-04-destructive-button.tsx
-'use client'
-
-import { clsx } from 'clsx'
-import { forwardRef, type HTMLAttributes } from 'react'
-import { useE04DestructiveButton } from './hooks/use-e-04-destructive-button'
-import type { E04DestructiveButtonProps } from './e-04-destructive-button.d.ts'
-import { Circle } from 'lucide-react'
-
-export const E04DestructiveButton = forwardRef<HTMLButtonElement, E04DestructiveButtonProps>(
-  ({ 
-    className, 
-    format = 'F-01 Primary',
-    state = 'S-00 Default',
-    size = 'M-01 Small',
-    iconPosition = 'None',
-    label = 'Button',
-    icon = 'E-10 Circle',
-    ...props 
-  }, ref) => {
-    const { 
-      destructiveButtonRef, 
-      variant, 
-      destructiveButtonStyle 
-    } = useE04DestructiveButton({ 
-      ref, 
-      format, 
-      state, 
-      size, 
-      iconPosition,
-      ...props 
-    })
-
-    // Determine if we should render the icon based on iconPosition
-    const showIcon = iconPosition !== 'None'
-    // Determine if we should render the label based on iconPosition
-    const showLabel = iconPosition !== 'Only'
-
-    return (
-      <button
-        data-comp="e-04-destructive-button"
-        data-variant={variant}
-        className={clsx(destructiveButtonStyle.base(), className)}
-        ref={destructiveButtonRef}
-        {...props}
-      >
-        {showIcon && (
-          <span data-slot="icon" className={destructiveButtonStyle.icon()}>
-            <Circle /> {/* Replace with proper icon component based on icon prop */}
-          </span>
-        )}
-        {showLabel && (
-          <span data-slot="label" className={destructiveButtonStyle.label()}>
-            {label}
-          </span>
-        )}
-      </button>
-    )
-  }
-)
-
-E04DestructiveButton.displayName = 'E04DestructiveButton'
-
-// Export types from the component's .d.ts file
-export * from './e-04-destructive-button.d.ts'
-```
-
-### Examples of component usage
+The E-04 Destructive Button is a simple button component with optional icon and label elements. The structure will vary based on the `iconPosition` prop:
 
 ```jsx
-// Basic usage with default props
-<E04DestructiveButton />
+// Base structure (iconPosition="None" - only label)
+<button
+  data-comp="e-04-destructive-button"
+  data-variant={variant}
+  className={buttonStyles.base()}
+  ref={buttonRef}
+  {...props}
+>
+  <span data-slot="label" className={buttonStyles.label()}>
+    {label}
+  </span>
+</button>
 
-// Primary destructive button with custom label
-<E04DestructiveButton 
-  format="F-01 Primary"
-  label="Delete Account"
-/>
+// With leading icon (iconPosition="Leading")
+<button
+  data-comp="e-04-destructive-button"
+  data-variant={variant}
+  className={buttonStyles.base()}
+  ref={buttonRef}
+  {...props}
+>
+  <span data-slot="icon" className={buttonStyles.icon()}>
+    <Icon /> {/* Icon component based on icon prop */}
+  </span>
+  <span data-slot="label" className={buttonStyles.label()}>
+    {label}
+  </span>
+</button>
 
-// Secondary destructive button with leading icon
-<E04DestructiveButton 
-  format="F-02 Secondary"
-  iconPosition="Leading"
-  label="Remove Item"
-  icon="E-10 Circle"
-/>
+// With trailing icon (iconPosition="Trailing")
+<button
+  data-comp="e-04-destructive-button"
+  data-variant={variant}
+  className={buttonStyles.base()}
+  ref={buttonRef}
+  {...props}
+>
+  <span data-slot="label" className={buttonStyles.label()}>
+    {label}
+  </span>
+  <span data-slot="icon" className={buttonStyles.icon()}>
+    <Icon /> {/* Icon component based on icon prop */}
+  </span>
+</button>
 
-// Tertiary destructive button with trailing icon
-<E04DestructiveButton 
-  format="F-03 Tertiary"
-  iconPosition="Trailing"
-  label="Cancel Subscription"
-  icon="E-10 Circle"
-/>
+// Icon only (iconPosition="Only")
+<button
+  data-comp="e-04-destructive-button"
+  data-variant={variant}
+  className={buttonStyles.base()}
+  ref={buttonRef}
+  {...props}
+>
+  <span data-slot="icon" className={buttonStyles.icon()}>
+    <Icon /> {/* Icon component based on icon prop */}
+  </span>
+</button>
+```
 
-// Link style destructive button
-<E04DestructiveButton 
-  format="F-04 Link"
-  label="Delete Permanently"
-/>
+#### Child components to import
 
-// Icon-only destructive button
-<E04DestructiveButton 
-  iconPosition="Only"
-  icon="E-10 Circle"
-  aria-label="Delete"
-/>
+- Icon component from `lucide-react` library (based on the `icon` prop)
 
-// Large destructive button
-<E04DestructiveButton 
-  size="M-03 Large"
-  label="Confirm Deletion"
-/>
+#### Child components to break down into parts folder
 
-// Disabled destructive button
-<E04DestructiveButton 
-  state="S-03 Disabled"
-  label="Delete Account"
-/>
+No additional child components need to be broken down into parts folder as this is a simple button component with basic elements (icon and label).
 
-// Focused destructive button
-<E04DestructiveButton 
-  state="S-02 Focused"
-  label="Remove Data"
-/>
+#### Implementation Notes
+1. **Icon mapping**: Use the title to map the icon name from the library. For example: "E-10 Circle" -> "Circle" icon component from lucide-react
+2. **Accessibility**: Use the `label` prop value for the aria-label even when the label is not visually displayed
+3. **Button type**: Default to "button" to prevent accidental form submissions
+4. **Focus management**: Rely solely on CSS styling for the focused state
+5. **Disabled state handling**: Do not set the HTML `disabled` attribute on the button element
 
-// Hover state destructive button
-<E04DestructiveButton 
-  state="S-01 Hover"
-  label="Clear History"
-/>
+### Tailwind Variants
+
+Based on the Figma data and component structure, here's the planned Tailwind Variants configuration:
+
+#### Slots Configuration
+The slots configuration defines the base styles for the button, label, and icon. 
+- `base`: inline-flex items-center justify-center gap-2 rounded-lg
+- `label`: font-semibold
+- `icon`: flex items-center justify-center
+
+#### Variants Configuration
+The variants configuration defines the styles for different formats, states, sizes, and icon positions.
+- Format variants: 
+  - F-01 Primary: bg-red-600 text-white
+  - F-02 Secondary: bg-white text-red-600 border border-red-600
+  - F-03 Tertiary: bg-transparent text-red-600
+  - F-04 Link: bg-transparent text-red-600 p-0
+- State variants: 
+  - S-00 Default: 
+  - S-01 Hover: 
+    - F-01 Primary: bg-red-700
+    - F-02 Secondary: bg-red-50
+    - F-03 Tertiary: bg-red-50
+    - F-04 Link: underline
+  - S-02 Focused: ring-2 ring-offset-2 ring-red-500
+  - S-03 Disabled: opacity-50 cursor-not-allowed
+- Size variants: 
+  - M-01 Small: text-sm, icon: h-4 w-4
+  - M-02 Medium: text-base, icon: h-5 w-5
+  - M-03 Large: text-lg, icon: h-6 w-6
+  - M-04 Extra Large: text-xl, icon: h-7 w-7
+- Icon position variants: 
+  - None: icon: hidden
+  - Leading: 
+  - Trailing: 
+  - Only: label: hidden
+
+#### Compound Variants Configuration
+The compound variants configuration defines the styles for combinations of size and format.
+- Size + Format combinations for border and gap: 
+  - M-01 Small + F-01 Primary: px-3 py-2 gap-1.5
+  - M-01 Small + F-02 Secondary: px-3 py-2 gap-1.5
+  - M-01 Small + F-03 Tertiary: px-3 py-2 gap-1.5
+  - M-02 Medium + F-01 Primary: px-4 py-2.5 gap-2
+  - M-02 Medium + F-02 Secondary: px-4 py-2.5 gap-2
+  - M-02 Medium + F-03 Tertiary: px-4 py-2.5 gap-2
+  - M-03 Large + F-01 Primary: px-5 py-3 gap-2.5
+  - M-03 Large + F-02 Secondary: px-5 py-3 gap-2.5
+  - M-03 Large + F-03 Tertiary: px-5 py-3 gap-2.5
+  - M-04 Extra Large + F-01 Primary: px-6 py-3.5 gap-3
+  - M-04 Extra Large + F-02 Secondary: px-6 py-3.5 gap-3
+  - M-04 Extra Large + F-03 Tertiary: px-6 py-3.5 gap-3
+- Icon-only buttons (square shape): 
+  - Only + M-01 Small: p-2
+  - Only + M-02 Medium: p-2.5
+  - Only + M-03 Large: p-3
+  - Only + M-04 Extra Large: p-3.5
+
+#### Default Variants Configuration
+The default variants configuration defines the default styles for the button.
+- format: F-01 Primary
+- state: S-00 Default
+- size: M-02 Medium
+- iconPosition: None
+
+#### Implementation Notes
+1. **Color theming**: Use Tailwind classes that match the values from Figma data
+2. **Hover states**: Handle only via the `state` prop, not CSS pseudo-classes
+3. **Focus states**: Handle only via the `state` prop, not CSS pseudo-classes
+4. **Disabled handling**: No need to apply the HTML `disabled` attribute
+5. **Animation transitions**: No transition effects needed
+6. **Icon spacing**: Use gap on the container instead of margin on the label
+7. **Responsive sizing**: Button sizes should remain consistent across all breakpoints
+
+### Component Folder Structure
+
+Following the atomic design principles and the Bulletproof React architecture pattern, here's the planned folder structure for the E-04 Destructive Button component:
+
+```
+src/
+  components/
+    element/
+      Buttons/
+        E-04-Destructive-Button/
+          parts/
+            - E04DestructiveButton.tsx (main component implementation)
+          tests/
+            - E04DestructiveButton.test.tsx (unit tests for the component)
+          hooks/
+            - useE04DestructiveButton.ts (custom hook if needed)
+          e-04-destructive-button.d.ts (TypeScript types for the component)
+          e-04-destructive-button.config.ts (Tailwind variants configuration)
+          e-04-destructive-button.mock.ts (mock data for testing and demo)
+          README.md (component documentation and tracking version history)
+          index.tsx (main export entry file)
+```
+
+#### File Purposes
+
+1. **Main Component File**: `parts/E04DestructiveButton.tsx` will contain the core implementation of the button component with all the variants and logic.
+
+2. **Types File**: `e-04-destructive-button.d.ts` will contain all the TypeScript interfaces defined in this README.
+
+3. **Config File**: `e-04-destructive-button.config.ts` will contain the Tailwind Variants configuration as planned above.
+
+4. **Mock Data**: `e-04-destructive-button.mock.ts` will contain sample data for testing and demonstration purposes.
+
+5. **Tests**: `tests/E04DestructiveButton.test.tsx` will contain the unit tests based on the test cases defined in this README.
+
+6. **Index File**: `index.tsx` will be the main export point for the component, making it easy to import from other parts of the application.
+
+This structure organizes the component in a modular way that makes it easy to maintain and extend, following the project's established patterns.
