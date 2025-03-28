@@ -5,10 +5,10 @@
 // Variant Props (🎨)
 export interface {{pascalCase name}}VariantProps {
   // Examples:
-  // format: 'F-01 Primary' | 'F-02 Secondary' | 'F-03 Tertiary' | 'F-04 Link';
-  // state: 'S-00 Default' | 'S-01 Hover' | 'S-02 Focused' | 'S-03 Disabled';
-  // theme: 'T-01 Brand' | 'T-02 Grey';
-  // size: 'M-01 Small' | 'M-02 Medium' | 'M-03 Large' | 'M-04 Extra Large';
+  // format: 'primary' | 'secondary' | 'tertiary' | 'link';
+  // state: 'default' | 'hover' | 'focused' | 'disabled';
+  // theme: 'brand' | 'grey';
+  // size: 'small' | 'medium' | 'large' | 'extra-large';
 }
 
 // External Props (⚙️)
@@ -21,7 +21,7 @@ export interface {{pascalCase name}}ExternalProps {
 export interface {{pascalCase name}}DataProps {
   // Examples:
   // label: string;
-  // icon: Icon;
+  // icon: React Element since icon will be used the icon component from lucide-react;
 }
 }
 
@@ -34,12 +34,17 @@ export interface {{pascalCase name}}Props
 ```
 ### Rules
 - All prop name should be in lower case. 
+- All prop values must remove the prefix but the their order should be preserved by prefix. Comment the original prop values with prefix to align the order.
+For example: 
+```ts
+format: 'primary' | 'secondary' | 'tertiary' | 'link'; // 'F-01 Primary' | 'F-02 Secondary' | 'F-03 Tertiary' | 'F-04 Link'
+```
 - For External Props, Data Props, and Config Props, please remove the `data`, `config`, `external` prefixes in their prop names. 
 For example: "dataLabel" -> "label", "dataIcon" -> "icon", "configPosition" -> "position"
-- For the icon type, use Icon type from lucide-react library
 - Do not include or combine any extra props of your own interpretation
 
----
+<br/>
+
 
 ## React Component Template
 ```tsx
@@ -72,14 +77,17 @@ export const {{pascalCase name}} = forwardRef<HTMLDivElement, {{pascalCase name}
 
 {{pascalCase name}}.displayName = '{{pascalCase name}}'
 
-// Export types from the component's .d.ts file
-export * from './{{dashCase name}}.d.ts'
 ```
+### Rules
+- Use Icon component from lucide-react lib for icon props. 
+- Use the correct naming convention for the React component (E##ComponentName format, e.g. "E00SocialIcon" instead of "SocialIcon")
 
----
+
+<br/>
 
 ## Tailwind Variant Configuration Template
 
+### Template
 ```ts
 
 // {{dashCase name}}.config.ts
@@ -119,4 +127,7 @@ export { {{camelCase name}}Config }
 ```
 
 ### Rules
-- All the component states should be handled via the `state` prop
+- Use theme variables from `global.css`, or Tailwind classes only for styling consistency. Never use arbitrary values.
+- If you cannot find the exact matching theme variable or Tailwind classes for the Figma values, use the closest matching Tailwind classes instead.
+- For now, use violet color scheme for any brand color in Figma data.
+- Handle hover state using Tailwind classes

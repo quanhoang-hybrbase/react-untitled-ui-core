@@ -1,168 +1,265 @@
-# Element/Buttons/E-03 Button
+# E-03 Button
 
-## UI Specification
+## Figma Documentation
 
-### Component Name
-E-03 Button
+### Figma Link
+https://www.figma.com/design/GezJK336BOErAZ6Dm71c3K/%E2%9D%96-Untitled-UI-Design-System?node-id=8674-86670&t=Lh67BEUhdW3ZVA6s-4
 
-### Component Purpose
-A Button is an interactive UI element that allows users to trigger actions or navigate within an interface.
+### Component Description
+A E-03 Button is an interactive UI element that allows users to trigger actions or navigate within an interface.
 
-### Unit test cases to validate props misconfiguration
+### Variant Props (🎨)
+- **Format**: F-01 Primary (default value), F-02 Secondary, F-03 Tertiary, F-04 Link
+  - This prop defines the button's visual style and prominence to indicate its role, such as initiating a key action (Primary) or providing a subtle navigation option (Link).
 
-```tsx
-// Component naming test
-describe('E03Button', () => {
-  it('should have the correct display name', () => {
-    expect(E03Button.displayName).toBe('E03Button');
-  });
+- **State**: S-00 Default (default value), S-01 Hover, S-02 Focused, S-03 Disabled
+  - This prop adjusts the button's appearance to reflect its current interaction state, signaling to users whether it's clickable, highlighted, or inactive.
 
-  // Props names tests
-  describe('Props names validation', () => {
-    it('should accept format prop', () => {
-      render(<E03Button format="F-01 Primary" />);
-      // No error should be thrown
-    });
+- **Theme**: T-01 Brand (default value), T-02 Grey
+  - This prop sets the button's color scheme to align with branding (Brand) or a neutral tone (Grey), ensuring visual consistency across the interface.
 
-    it('should accept state prop', () => {
-      render(<E03Button state="S-00 Default" />);
-      // No error should be thrown
-    });
+- **Size**: M-01 Small (default value), M-02 Medium, M-03 Large, M-04 Extra Large
+  - This prop controls the button's physical dimensions to suit its context, such as compact controls (Small) or prominent calls-to-action (Large).
 
-    it('should accept theme prop', () => {
-      render(<E03Button theme="T-01 Brand" />);
-      // No error should be thrown
-    });
+### External Props (➡️)
+- **externalIconPosition**: None (default value), Leading, Trailing, Only
+  - This prop determines the placement of an icon relative to the button's label, enhancing usability by visually supporting the button's action.
+  - If the Button has an Icon positioned to the left of the Label, then externalIconPosition is "Leading"
+  - If the Button has an Icon positioned to the right of the Label, then externalIconPosition is "Trailing"
+  - If the Button contains only an Icon without a Label, then externalIconPosition is "Only"
+  - If the Button contains only a Label without an Icon, then externalIconPosition is "None"
 
-    it('should accept size prop', () => {
-      render(<E03Button size="M-01 Small" />);
-      // No error should be thrown
-    });
+### Data Props (📦)
+- **dataLabel**: "Button" (default value)
+  - This prop specifies the text displayed on the button, clearly communicating its action or intent to the user.
 
-    it('should accept iconPosition prop', () => {
-      render(<E03Button iconPosition="Leading" />);
-      // No error should be thrown
-    });
+- **dataIcon**: "E-10 Circle" (default value)
+  - This prop defines the icon shown on the button, providing a visual cue to reinforce the button's purpose. In React, this prop will pass down an icon component from the lucide-react library.
 
-    it('should accept label prop', () => {
-      render(<E03Button label="Button" />);
-      // No error should be thrown
-    });
+## Implementation Plan
+### Unit Test Cases
 
-    it('should accept icon prop', () => {
-      render(<E03Button icon="E-10 Circle" />);
-      // No error should be thrown
-    });
-  });
+1. **Test Scenario**: Verify component renders with correct name
+   - **Input**: `<E03Button data-testid="test-button" />`
+   - **Expected Output**: Element rendered with data-comp="e-03-button"
 
-  // Props values tests
-  describe('Props values validation', () => {
-    // Format prop values
-    it('should accept valid format values', () => {
-      const { rerender } = render(<E03Button format="F-01 Primary" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-format', 'F-01 Primary');
-      
-      rerender(<E03Button format="F-02 Secondary" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-format', 'F-02 Secondary');
-      
-      rerender(<E03Button format="F-03 Tertiary" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-format', 'F-03 Tertiary');
-      
-      rerender(<E03Button format="F-04 Link" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-format', 'F-04 Link');
-    });
+2. **Test Scenario**: Verify default format prop is applied
+   - **Input**: `<E03Button data-testid="test-button" />`
+   - **Expected Output**: Element rendered with format="F-01 Primary"
 
-    // State prop values
-    it('should accept valid state values', () => {
-      const { rerender } = render(<E03Button state="S-00 Default" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-state', 'S-00 Default');
-      
-      rerender(<E03Button state="S-01 Hover" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-state', 'S-01 Hover');
-      
-      rerender(<E03Button state="S-02 Focused" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-state', 'S-02 Focused');
-      
-      rerender(<E03Button state="S-03 Disabled" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-state', 'S-03 Disabled');
-    });
+3. **Test Scenario**: Verify custom format prop is applied
+   - **Input**: `<E03Button data-testid="test-button" format="secondary" />`
+   - **Expected Output**: Element rendered with format="F-02 Secondary"
 
-    // Theme prop values
-    it('should accept valid theme values', () => {
-      const { rerender } = render(<E03Button theme="T-01 Brand" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-theme', 'T-01 Brand');
-      
-      rerender(<E03Button theme="T-02 Grey" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-theme', 'T-02 Grey');
-    });
+4. **Test Scenario**: Verify default state prop is applied
+   - **Input**: `<E03Button data-testid="test-button" />`
+   - **Expected Output**: Element rendered with state="S-00 Default"
 
-    // Size prop values
-    it('should accept valid size values', () => {
-      const { rerender } = render(<E03Button size="M-01 Small" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-size', 'M-01 Small');
-      
-      rerender(<E03Button size="M-02 Medium" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-size', 'M-02 Medium');
-      
-      rerender(<E03Button size="M-03 Large" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-size', 'M-03 Large');
-      
-      rerender(<E03Button size="M-04 Extra Large" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-size', 'M-04 Extra Large');
-    });
+5. **Test Scenario**: Verify custom state prop is applied
+   - **Input**: `<E03Button data-testid="test-button" state="disabled" />`
+   - **Expected Output**: Element rendered with state="S-03 Disabled"
 
-    // iconPosition prop values
-    it('should accept valid iconPosition values', () => {
-      const { rerender } = render(<E03Button iconPosition="None" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-icon-position', 'None');
-      
-      rerender(<E03Button iconPosition="Leading" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-icon-position', 'Leading');
-      
-      rerender(<E03Button iconPosition="Trailing" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-icon-position', 'Trailing');
-      
-      rerender(<E03Button iconPosition="Only" />);
-      expect(screen.getByTestId('e03-button')).toHaveAttribute('data-icon-position', 'Only');
-    });
+6. **Test Scenario**: Verify default theme prop is applied
+   - **Input**: `<E03Button data-testid="test-button" />`
+   - **Expected Output**: Element rendered with theme="T-01 Brand"
 
-    // label prop values
-    it('should display the correct label text', () => {
-      render(<E03Button label="Custom Button Text" />);
-      expect(screen.getByText('Custom Button Text')).toBeInTheDocument();
-    });
+7. **Test Scenario**: Verify custom theme prop is applied
+   - **Input**: `<E03Button data-testid="test-button" theme="grey" />`
+   - **Expected Output**: Element rendered with theme="T-02 Grey"
 
-    // icon prop values
-    it('should render the correct icon', () => {
-      render(<E03Button icon="E-10 Circle" iconPosition="Leading" />);
-      // This would need to be adjusted based on how icons are implemented
-      expect(screen.getByTestId('icon-e10-circle')).toBeInTheDocument();
-    });
-  });
-});
+8. **Test Scenario**: Verify default size prop is applied
+   - **Input**: `<E03Button data-testid="test-button" />`
+   - **Expected Output**: Element rendered with size="M-01 Small"
+
+9. **Test Scenario**: Verify custom size prop is applied
+   - **Input**: `<E03Button data-testid="test-button" size="large" />`
+   - **Expected Output**: Element rendered with size="M-03 Large"
+
+10. **Test Scenario**: Verify default iconPosition prop is applied
+    - **Input**: `<E03Button data-testid="test-button" />`
+    - **Expected Output**: Element rendered with iconPosition="None"
+
+11. **Test Scenario**: Verify custom iconPosition prop is applied
+    - **Input**: `<E03Button data-testid="test-button" iconPosition="leading" icon={<Circle />} />`
+    - **Expected Output**: Element rendered with iconPosition="Leading" and icon shown to left of label
+
+12. **Test Scenario**: Verify default label prop is applied
+    - **Input**: `<E03Button data-testid="test-button" />`
+    - **Expected Output**: Element rendered with label="Button"
+
+13. **Test Scenario**: Verify custom label prop is applied
+    - **Input**: `<E03Button data-testid="test-button" label="Submit" />`
+    - **Expected Output**: Element rendered with label="Submit"
+
+14. **Test Scenario**: Verify default icon prop is applied
+    - **Input**: `<E03Button data-testid="test-button" iconPosition="leading" />`
+    - **Expected Output**: Element rendered with Circle icon from lucide-react (representing "E-10 Circle")
+
+15. **Test Scenario**: Verify custom icon prop is applied
+    - **Input**: `<E03Button data-testid="test-button" iconPosition="leading" icon={<Mail />} />`
+    - **Expected Output**: Element rendered with custom Mail icon
+
+16. **Test Scenario**: Verify icon-only button shows no label
+    - **Input**: `<E03Button data-testid="test-button" iconPosition="only" icon={<Circle />} />`
+    - **Expected Output**: Element rendered with only an icon and no label
+
+17. **Test Scenario**: Verify button is disabled when state is set to 'disabled'
+    - **Input**: `<E03Button data-testid="test-button" state="disabled" />`
+    - **Expected Output**: Button element with disabled attribute set
+
+18. **Test Scenario**: Verify ref forwarding works correctly
+    - **Input**: 
+    ```jsx
+    const ref = React.createRef();
+    <E03Button data-testid="test-button" ref={ref} />
+    ```
+    - **Expected Output**: Button element reference is accessible through the ref
+
+19. **Test Scenario**: Verify HTML button attributes are passed through
+    - **Input**: `<E03Button data-testid="test-button" type="submit" aria-label="Submit form" />`
+    - **Expected Output**: Button with type="submit" and aria-label="Submit form"
+
+20. **Test Scenario**: Verify click handler works
+    - **Input**: 
+    ```jsx
+    const handleClick = jest.fn();
+    <E03Button data-testid="test-button" onClick={handleClick} />
+    // Then simulate click on the button
+    ```
+    - **Expected Output**: handleClick function is called when button is clicked
+
+21. **Test Scenario**: Verify disabled button doesn't trigger click handler
+    - **Input**: 
+    ```jsx
+    const handleClick = jest.fn();
+    <E03Button data-testid="test-button" state="disabled" onClick={handleClick} />
+    // Then simulate click on the button
+    ```
+    - **Expected Output**: handleClick function is not called when button is clicked
+
+### HTML Structure
+
+The component will use semantic HTML elements with appropriate accessibility attributes:
+
+```jsx
+// Base Button Component Structure
+<button
+  data-comp="e-03-button"
+  data-variant={variant}
+  className={buttonStyles}
+  disabled={state === 'disabled'}
+  ref={buttonRef}
+  {...otherProps}
+>
+  {/* Leading Icon (if iconPosition is 'leading') */}
+  {iconPosition === 'leading' && (
+    <span className={iconStyles}>
+      {icon || <Circle />}
+    </span>
+  )}
+  
+  {/* Label (if iconPosition is not 'only') */}
+  {iconPosition !== 'only' && (
+    <span className={labelStyles}>
+      {label || 'Button'}
+    </span>
+  )}
+  
+  {/* Trailing Icon (if iconPosition is 'trailing') */}
+  {iconPosition === 'trailing' && (
+    <span className={iconStyles}>
+      {icon || <Circle />}
+    </span>
+  )}
+  
+  {/* Only Icon (if iconPosition is 'only') */}
+  {iconPosition === 'only' && (
+    <span className={iconStyles}>
+      {icon || <Circle />}
+    </span>
+  )}
+</button>
 ```
 
-### Props Definition as Typescript types
+#### Implementation Notes:
+- Uses native `<button>` element for proper accessibility and semantic HTML
+- Conditional rendering based on `iconPosition` prop
 
-```tsx
-// e03-button.d.ts
+### Tailwind Variants Configuration
+
+The E-03 Button uses tailwind-variants to manage its styling. The configuration:
+
+1. **Slots**:
+   - `base`: Styles the main button container with flexbox layout, rounded corners, focus states, and transition effects
+   - `icon`: Configures icon display with proper sizing and spacing
+   - `label`: Handles text styling with truncation for overflow
+
+2. **Variants**:
+   - `format`:
+     - primary: Solid red background with white text (includes hover/focus states via CSS pseudo-classes)
+     - secondary: White background with red border and text (includes hover/focus states via CSS pseudo-classes)
+     - tertiary: Transparent background with red text (includes hover/focus states via CSS pseudo-classes)
+     - link: Text-only appearance with underline on hover (includes hover/focus states via CSS pseudo-classes)
+   
+   - `theme`:
+     - brand: Uses red as the primary color (default)
+     - grey: Uses grey tones for a more neutral appearance
+   
+   - `size`:
+     - small: Compact size for tight spaces
+     - medium: Standard size for most interfaces
+     - large: Enhanced visibility for important actions
+     - extra-large: Maximum prominence for primary calls-to-action
+   
+   - `state`:
+     - default: Normal appearance
+     - disabled: Reduced opacity and cursor-not-allowed
+   
+   - `iconPosition`:
+     - none: Text only
+     - leading: Icon before text
+     - trailing: Icon after text
+     - only: Icon only with square aspect ratio
+
+3. **Compound Variants**:
+   - `theme` + `format`:
+     - grey + primary: Dark grey background with white text (instead of red)
+     - grey + secondary: White background with grey border and text (instead of red)
+     - grey + tertiary: Transparent background with grey text (instead of red)
+     - grey + link: Grey text with underline on hover (instead of red)
+   - `state` + `format`: Disables hover effects when button is disabled
+
+4. **Defaults Variants**:
+   - `format`: `primary`
+   - `state`: `default`
+   - `iconPosition`: `none`
+   - `theme`: `brand`
+   - `size`: `small`
+
+### Typescript Types
+
+```typescript
+// e-03-button.d.ts
+
+import { Icon } from 'lucide-react'
+
 // Variant Props (🎨)
 export interface E03ButtonVariantProps {
-  format: 'F-01 Primary' | 'F-02 Secondary' | 'F-03 Tertiary' | 'F-04 Link';
-  state: 'S-00 Default' | 'S-01 Hover' | 'S-02 Focused' | 'S-03 Disabled';
-  theme: 'T-01 Brand' | 'T-02 Grey';
-  size: 'M-01 Small' | 'M-02 Medium' | 'M-03 Large' | 'M-04 Extra Large';
+  format?: 'primary' | 'secondary' | 'tertiary' | 'link'; // 'F-01 Primary' | 'F-02 Secondary' | 'F-03 Tertiary' | 'F-04 Link'
+  state?: 'default' | 'hover' | 'focused' | 'disabled'; // 'S-00 Default' | 'S-01 Hover' | 'S-02 Focused' | 'S-03 Disabled'
+  theme?: 'brand' | 'grey'; // 'T-01 Brand' | 'T-02 Grey'
+  size?: 'small' | 'medium' | 'large' | 'extra-large'; // 'M-01 Small' | 'M-02 Medium' | 'M-03 Large' | 'M-04 Extra Large'
 }
 
 // External Props (➡️)
 export interface E03ButtonExternalProps {
-  iconPosition: 'None' | 'Leading' | 'Trailing' | 'Only';
+  iconPosition?: 'none' | 'leading' | 'trailing' | 'only'; // 'None' | 'Leading' | 'Trailing' | 'Only'
 }
 
 // Data Props (📦)
 export interface E03ButtonDataProps {
-  label: string;
-  icon: string;
+  label?: string; // Default: "Button"
+  icon?: Icon; // Default: Circle from lucide-react
 }
 
 // Component Props
@@ -173,462 +270,54 @@ export interface E03ButtonProps
     Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {}
 ```
 
-### Component folder structure
+### Component Folder Structure
 
 ```
-src/
-└── components/
-    └── element/
-        └── Buttons/
-            └── E-03-Button/
-                ├── README.md
-                ├── e03-button.config.ts
-                ├── e03-button.d.ts
-                ├── parts/
-                │   └── e03-button.tsx  # Main component file
-                ├── hooks/
-                │   └── use-e03-button.ts
-                └── index.tsx  # Main export entry file
+src/components/element/Buttons/E-03-Button/
+├── parts/ 
+│   └── e-03-button.tsx            # Main component implementation
+├── hooks/
+│   └── use-e-03-button.ts         # Custom hook for button logic
+├── tests/
+│   └── e-03-button.test.tsx       # Unit tests for button component
+├── stories/
+│   └── e-03-button.stories.tsx    # Storybook stories for documentation
+├── e-03-button.config.ts          # Tailwind variants configuration
+├── e-03-button.d.ts               # TypeScript type definitions
+├── index.tsx                      # Main export file
+└── README.md                      # Component documentation (this file)
 ```
 
-### Tailwind Variant styling configuration
+Each file will have the following responsibilities:
 
-```tsx
-// e03-button.config.ts
-import { tv, type VariantProps } from 'tailwind-variants'
+1. **e-03-button.tsx**: 
+   - The main component implementation
+   - Uses the custom hook for logic separation
+   - Implements the HTML structure as defined
+   - Applies styles from the tailwind-variants configuration
 
-const e03ButtonConfig = tv({
-  slots: {
-    base: 'inline-flex items-center justify-center rounded-lg transition-colors focus:outline-none focus-visible:ring-4',
-    icon: 'flex items-center justify-center',
-    label: 'font-semibold',
-  },
-  variants: {
-    format: {
-      'F-01 Primary': {
-        // Primary button with solid background
-        base: 'bg-primary-600 hover:bg-primary-700 focus:ring-primary-100',
-        icon: 'text-white',
-        label: 'text-white',
-      },
-      'F-02 Secondary': {
-        // Secondary button with outline
-        base: 'border border-gray-300 bg-white hover:bg-gray-50 focus:ring-gray-100',
-        icon: 'text-gray-700',
-        label: 'text-gray-700',
-      },
-      'F-03 Tertiary': {
-        // Tertiary button with no background or border
-        base: 'bg-transparent hover:bg-gray-100 focus:ring-gray-100',
-        icon: 'text-gray-700',
-        label: 'text-gray-700',
-      },
-      'F-04 Link': {
-        // Link style button
-        base: 'bg-transparent hover:underline focus:ring-primary-100',
-        icon: 'text-primary-600',
-        label: 'text-primary-600',
-      },
-    },
-    state: {
-      'S-00 Default': {},
-      'S-01 Hover': {}, // Hover styles are handled in format variants
-      'S-02 Focused': {
-        base: 'ring-4', // Focus ring
-      },
-      'S-03 Disabled': {
-        base: 'opacity-50 cursor-not-allowed',
-      },
-    },
-    theme: {
-      'T-01 Brand': {}, // Brand theme is handled in format variants
-      'T-02 Grey': {
-        'F-01 Primary': {
-          base: 'bg-gray-900 hover:bg-gray-800 focus:ring-gray-200',
-        },
-      },
-    },
-    size: {
-      'M-01 Small': {
-        base: 'text-sm',
-        label: 'text-sm',
-        // From API response: padding: "8px 14px" for text, "8px" for icon-only
-      },
-      'M-02 Medium': {
-        base: 'text-base',
-        label: 'text-base',
-        // From API response: padding: "10px 18px" for text, "10px" for icon-only
-      },
-      'M-03 Large': {
-        base: 'text-base',
-        label: 'text-base',
-        // From API response: padding: "12px 20px" for text, "12px" for icon-only
-      },
-      'M-04 Extra Large': {
-        base: 'text-lg',
-        label: 'text-lg',
-        // From API response: padding: "14px" for icon-only, larger padding for text
-      },
-    },
-    iconPosition: {
-      'None': {
-        icon: 'hidden',
-      },
-      'Leading': {
-        base: 'flex-row',
-        // From API response: gap: "8px"
-      },
-      'Trailing': {
-        base: 'flex-row-reverse',
-        // From API response: gap: "8px"
-      },
-      'Only': {
-        label: 'hidden',
-      },
-    },
-  },
-  defaultVariants: {
-    format: 'F-01 Primary',
-    state: 'S-00 Default',
-    theme: 'T-01 Brand',
-    size: 'M-02 Medium',
-    iconPosition: 'None',
-  },
-  compoundVariants: [
-    // Size and iconPosition combinations
-    {
-      size: 'M-01 Small',
-      iconPosition: 'None',
-      class: {
-        base: 'px-3.5 py-2', // 8px 14px from API
-      },
-    },
-    {
-      size: 'M-01 Small',
-      iconPosition: 'Only',
-      class: {
-        base: 'p-2', // 8px from API
-      },
-    },
-    {
-      size: 'M-01 Small',
-      iconPosition: ['Leading', 'Trailing'],
-      class: {
-        base: 'px-3.5 py-2 gap-2', // 8px 14px with gap 8px from API
-      },
-    },
-    {
-      size: 'M-02 Medium',
-      iconPosition: 'None',
-      class: {
-        base: 'px-4.5 py-2.5', // 10px 18px from API
-      },
-    },
-    {
-      size: 'M-02 Medium',
-      iconPosition: 'Only',
-      class: {
-        base: 'p-2.5', // 10px from API
-      },
-    },
-    {
-      size: 'M-02 Medium',
-      iconPosition: ['Leading', 'Trailing'],
-      class: {
-        base: 'px-4.5 py-2.5 gap-2', // 10px 18px with gap 8px from API
-      },
-    },
-    {
-      size: 'M-03 Large',
-      iconPosition: 'None',
-      class: {
-        base: 'px-5 py-3', // 12px 20px from API
-      },
-    },
-    {
-      size: 'M-03 Large',
-      iconPosition: 'Only',
-      class: {
-        base: 'p-3', // 12px from API
-      },
-    },
-    {
-      size: 'M-03 Large',
-      iconPosition: ['Leading', 'Trailing'],
-      class: {
-        base: 'px-5 py-3 gap-2', // 12px 20px with gap 8px from API
-      },
-    },
-    {
-      size: 'M-04 Extra Large',
-      iconPosition: 'None',
-      class: {
-        base: 'px-6 py-3.5', // 14px larger for text
-      },
-    },
-    {
-      size: 'M-04 Extra Large',
-      iconPosition: 'Only',
-      class: {
-        base: 'p-3.5', // 14px from API
-      },
-    },
-    {
-      size: 'M-04 Extra Large',
-      iconPosition: ['Leading', 'Trailing'],
-      class: {
-        base: 'px-6 py-3.5 gap-2', // 14px larger with gap 8px from API
-      },
-    },
-    // Format and Theme combinations
-    {
-      format: 'F-01 Primary',
-      theme: 'T-02 Grey',
-      class: {
-        base: 'bg-gray-900 hover:bg-gray-800 focus:ring-gray-200',
-        icon: 'text-white',
-        label: 'text-white',
-      },
-    },
-    {
-      format: 'F-02 Secondary',
-      theme: 'T-02 Grey',
-      class: {
-        base: 'border border-gray-300 bg-white hover:bg-gray-50 focus:ring-gray-100',
-        icon: 'text-gray-700',
-        label: 'text-gray-700',
-      },
-    },
-    {
-      format: 'F-03 Tertiary',
-      theme: 'T-02 Grey',
-      class: {
-        base: 'bg-transparent hover:bg-gray-100 focus:ring-gray-100',
-        icon: 'text-gray-700',
-        label: 'text-gray-700',
-      },
-    },
-    {
-      format: 'F-04 Link',
-      theme: 'T-02 Grey',
-      class: {
-        base: 'bg-transparent hover:underline focus:ring-gray-100',
-        icon: 'text-gray-700',
-        label: 'text-gray-700',
-      },
-    },
-  ],
-})
+2. **use-e-03-button.ts**:
+   - Handles ref forwarding
+   - Sets default values for props
+   - Manages variants for styling
+   - Returns computed styles and other values needed by the component
 
-export type E03ButtonVariantProps = VariantProps<typeof e03ButtonConfig>
-export { e03ButtonConfig }
-```
+3. **e-03-button.config.ts**:
+   - Defines all the tailwind-variants configurations
+   - Exports variant types and configuration
 
-### React file JSX structure
+4. **e-03-button.d.ts**:
+   - Contains TypeScript interfaces for the component props
+   - Exports all necessary types
 
-```tsx
-// e03-button.tsx
-'use client'
-import { clsx } from 'clsx'
-import { forwardRef, type HTMLAttributes } from 'react'
-import { useE03Button } from './hooks/use-e03-button'
-import type { E03ButtonProps } from './e03-button.d.ts'
+5. **e-03-button.test.tsx**:
+   - Implements all the unit test cases defined in this plan
+   - Tests all prop combinations and variants
 
-export const E03Button = forwardRef<HTMLButtonElement, E03ButtonProps>(
-  ({ className, ...props }, ref) => {
-    const { e03ButtonRef, variant, e03ButtonStyle } = useE03Button({ ref, ...props })
+6. **e-03-button.stories.tsx**:
+   - Demonstrates all the component variants
+   - Provides interactive controls for all props
+   - Shows usage examples
 
-    return (
-      <button
-        data-comp="e03-button"
-        data-variant={variant}
-        className={clsx(e03ButtonStyle(), className)}
-        ref={e03ButtonRef}
-        {...props}
-      >
-        {props.iconPosition !== 'None' && props.iconPosition !== 'Trailing' && (
-          <span className={e03ButtonStyle.icon()}>{/* Icon will be rendered here */}</span>
-        )}
-        {props.iconPosition !== 'Only' && (
-          <span className={e03ButtonStyle.label()}>{props.label}</span>
-        )}
-        {props.iconPosition === 'Trailing' && (
-          <span className={e03ButtonStyle.icon()}>{/* Icon will be rendered here */}</span>
-        )}
-      </button>
-    )
-  }
-)
-
-E03Button.displayName = 'E03Button'
-
-// Export types from the component's .d.ts file
-export * from './e03-button.d.ts'
-```
-
-### Examples of component usage
-
-```tsx
-// Basic usage with default props
-<E03Button label="Button" />
-
-// Primary button with label
-<E03Button 
-  format="F-01 Primary"
-  label="Primary Button"
-  onClick={() => handleClick()}
-/>
-
-// Secondary button with label
-<E03Button 
-  format="F-02 Secondary"
-  label="Secondary Button"
-  onClick={() => handleClick()}
-/>
-
-// Tertiary button with label
-<E03Button 
-  format="F-03 Tertiary"
-  label="Tertiary Button"
-  onClick={() => handleClick()}
-/>
-
-// Link button with label
-<E03Button 
-  format="F-04 Link"
-  label="Link Button"
-  onClick={() => handleClick()}
-/>
-
-// Button with leading icon
-<E03Button 
-  format="F-01 Primary"
-  iconPosition="Leading"
-  icon="E-10 Circle"
-  label="Button with Leading Icon"
-  onClick={() => handleClick()}
-/>
-
-// Button with trailing icon
-<E03Button 
-  format="F-01 Primary"
-  iconPosition="Trailing"
-  icon="E-10 Circle"
-  label="Button with Trailing Icon"
-  onClick={() => handleClick()}
-/>
-
-// Icon-only button
-<E03Button 
-  format="F-01 Primary"
-  iconPosition="Only"
-  icon="E-10 Circle"
-  onClick={() => handleClick()}
-/>
-
-// Small button
-<E03Button 
-  format="F-01 Primary"
-  size="M-01 Small"
-  label="Small Button"
-  onClick={() => handleClick()}
-/>
-
-// Medium button
-<E03Button 
-  format="F-01 Primary"
-  size="M-02 Medium"
-  label="Medium Button"
-  onClick={() => handleClick()}
-/>
-
-// Large button
-<E03Button 
-  format="F-01 Primary"
-  size="M-03 Large"
-  label="Large Button"
-  onClick={() => handleClick()}
-/>
-
-// Extra large button
-<E03Button 
-  format="F-01 Primary"
-  size="M-04 Extra Large"
-  label="Extra Large Button"
-  onClick={() => handleClick()}
-/>
-
-// Button with grey theme
-<E03Button 
-  format="F-01 Primary"
-  theme="T-02 Grey"
-  label="Grey Theme Button"
-  onClick={() => handleClick()}
-/>
-
-// Button in hover state
-<E03Button 
-  format="F-01 Primary"
-  state="S-01 Hover"
-  label="Hover State Button"
-  onClick={() => handleClick()}
-/>
-
-// Button in focused state
-<E03Button 
-  format="F-01 Primary"
-  state="S-02 Focused"
-  label="Focused State Button"
-  onClick={() => handleClick()}
-/>
-
-// Disabled button
-<E03Button 
-  format="F-01 Primary"
-  state="S-03 Disabled"
-  label="Disabled Button"
-  disabled
-  onClick={() => handleClick()}
-/>
-
-// Usage in a form
-<form onSubmit={handleSubmit}>
-  <div className="space-y-4">
-    {/* Form fields would go here */}
-    <div className="flex justify-end space-x-3 mt-6">
-      <E03Button 
-        format="F-03 Tertiary"
-        label="Cancel"
-        onClick={() => handleCancel()}
-      />
-      <E03Button 
-        format="F-01 Primary"
-        label="Submit"
-        type="submit"
-      />
-    </div>
-  </div>
-</form>
-
-// Usage in a card with icon buttons
-<div className="flex justify-between items-center p-4 border rounded-lg">
-  <h3 className="text-lg font-semibold">Card Title</h3>
-  <div className="flex space-x-2">
-    <E03Button 
-      format="F-03 Tertiary"
-      iconPosition="Only"
-      icon="E-10 Circle"
-      size="M-01 Small"
-      aria-label="Edit"
-      onClick={() => handleEdit()}
-    />
-    <E03Button 
-      format="F-03 Tertiary"
-      iconPosition="Only"
-      icon="E-10 Circle"
-      size="M-01 Small"
-      aria-label="Delete"
-      onClick={() => handleDelete()}
-    />
-  </div>
-</div>
+7. **index.tsx**:
+   - Exports the component and its types for external use

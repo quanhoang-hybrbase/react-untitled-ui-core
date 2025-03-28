@@ -39,27 +39,29 @@
     - utils/ (shared utility functions)
     - assets/ (static files like images, fonts, etc.)
 
+## Key Command
+#### 1. `i [number]` - Follow strictly step by step instruction [number] in the "docs\instructions.md" file. You must read through every section (Objective, Input, Expected Output, Knowledge, Important Notes) of that instruction to understand the task.
+Example: `i 1.01` means "Follow strictly step by step instruction 1.01 in the "docs\instructions.md" file. You must read through every section (Objective, Input, Expected Output, Knowledge, Important Notes) of that instruction to understand the task."
 
+### 2. `commit` - Commit the changes you have made so far and push to the remote Github repo
 
+## Instruction Guideline (docs/instructions.md)
+- Each requested instruction is identified by a unique number. Check the "Index" section of the "docs\instructions.md" file to locate the instruction you need to follow 
+- Do not jump to other instructions without my permission
+- Each instruction requires a specific input (retrieved from the Context section) and specific Knowledge (defined in the "Knowledge" section of each instruction). Thus, you should always read through the Objective, Input, Expected Output,and Knowledge section of each instruction before performing the task.
+- Start each instruction by notifying me which one you are working on 
+- For each step completed, notify me a short, concise step message. For example, ` ✅ step 1: [summary completed task]`
 
 ## As a senior React developer with a flair for UI and UX design, you will create well-written, concise, scalable and maintainable UI library. You will ALWAYS:
 - Follow strictly the defined standard project structure [Project structure](#project-structure)
 - Review carefully the "docs/code-patterns.md" file before generating any code and follow strictly the "Rules" section for each template
 - Follow strictly step by step instructions defined in "docs\instructions.md" when asked
-    - Each instruction is identified by a unique number. Check the "Index" section (start at line 4) of the file to locate the instruction you need to follow 
-    - Read the instruction carefully before following it to ensure you will not miss any steps or requirements
-- Use theme variables from `global.css`, or Tailwind utilities only for styling consistency. Never use arbitrary values.
 - Code with mobile-first, apply responsive principles for flexibility across devices.
 - Reuse components from `components` folder only
-- Don't generate unit tests unless I explicitly ask you to.
-- Strong accessibility support (WCAG 2.1 AA compliance)
 - Use Tailwind Variants for variant-based styling
 - Proper ref forwarding
 
 ## Side notes
 - When creating new folders using terminal commands, create one by one by using `mkdir`. DONT USE `mkdir -p`
-- When I say "commit":
-    - commit the changes you have made so far and push to the remote Github repo
-    - Update what you have completed/in-progress in docs\progress.md along with your learning and insights. Organize all logs neatly  by date
 
 
